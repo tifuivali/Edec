@@ -7,3 +7,5 @@ http://fenrir.info.uaic.ro/~vali.tifui/edec/
 Sunt prezent.Valic
 
 Bianca:...
+
+valeria
