@@ -1,0 +1,47 @@
+
+    <nav class="navbar navbar-default headerNav">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/"><IMG class="logo" SRC="/images/edec.png" ALT="Home"   ></a>
+        </div>
+
+          <ul class="nav navbar-nav navbar-right">
+    <li>
+
+    <div class="searchDiv">
+    <div class="input-group">
+      <input type="text" class="form-control" placeholder="Search" aria-describedby="basic-addon2">
+      <span class="input-group-addon" id="basic-addon2"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></span>
+    </div>
+    </div>
+    </li>
+
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
+
+    <%if (logged==0){%>
+
+    <div class=headerdiv>
+        <a href="/signup" class=abouthref>sign up </a>  |
+        <a  href="/signin" class=usershref> sign in</a>
+    </div>
+    <%}else{%>
+    <div class=headerdiv>
+        welcome <%=username%>!
+    <a class ="a_class" href="#" class=abouthref><span class="glyphicon glyphicon-envelope" aria-hidden="true" style="font-size: 16px"></span> </a>
+
+    <a class ="a_class" href="/userprofile" class=abouthref><span class="glyphicon glyphicon-user" aria-hidden="true"></span> </a>
+    </div>
+    <%}%>
+
+
+

@@ -1,0 +1,67 @@
+
+/* http://bootsnipp.com/snippets/featured/register-page */
+
+
+
+.main{
+    margin-top: 70px;
+}
+
+h1.title {
+    font-size: 50px;
+    font-family: 'Passion One', cursive;
+    font-weight: 400;
+}
+
+hr{
+    width: 10%;
+    color: #fff;
+}
+
+.form-group{
+    margin-bottom: 15px;
+}
+
+label{
+    margin-bottom: 15px;
+}
+
+input,
+input::-webkit-input-placeholder {
+    font-size: 11px;
+    padding-top: 3px;
+}
+
+.main-login{
+
+    background-color: rgba(157, 157, 186, 0);
+
+
+
+}
+
+.main-center{
+    margin-top: 30px;
+    margin: 0 auto;
+    max-width: 330px;
+    padding: 40px 40px;
+
+}
+
+.form-group .btn{
+    margin-top: 5px;
+    background-color: #ff6c10;
+    color:white;
+    border-color:#ff6c10 ;
+}
+
+.login-register{
+    font-size: 11px;
+    text-align: center;
+}
+
+.form-group .btn.btn-signin:hover,
+.form-group .btn.btn-signin:active,
+.form-group .btn.btn-signin:focus {
+    background-color: rgb(255, 66, 0);
+}
