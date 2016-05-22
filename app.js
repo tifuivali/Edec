@@ -7,12 +7,18 @@ var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var about = require('./routes/about');
+var signin=require('./routes/signin');
+var signup=require('./routes/signup');
+var userprofile=require('./routes/userprofile');
 
 var app = express();
 
+app.locals.points = "8,713";
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+app.set('view engine', 'ejs');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -24,6 +30,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/users', users);
+app.use('/about', about);
+app.use('/signin',signin);
+app.use('/signup',signup);
+app.use('/userprofile',userprofile);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
