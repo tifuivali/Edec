@@ -31,8 +31,14 @@ div(id="bodydiv")
      div(id="reviews")
          if logged==0
             h3(class="positive_reviews")
-                a(href="#" class=abouthref) positive reviews
-            div(id="shadow")
+                a(href="#" class=abouthref) positive reviews  
+                select(id='pozitive_category')
+                   option(value='hotels_reviews') Hotels
+                   option(value='cars_reviews') Cars 
+                   option(value='carti_reviews') Books
+                   option(value='electronics_reviews') Electronics
+                   option(value='restaurants_reviews') Restaurants
+            div(id="pozitive_shadow")
          else
          
           h3(class="positive_reviews")
@@ -41,8 +47,14 @@ div(id="bodydiv")
      div(id="reviews1")
         if logged==0
            h3(class="positive_reviews")
-              a(href="#" class='abouthref') negative reviews
-           div(id="shadow") 
+              a(href="#" class='abouthref') negative reviews  
+              select(id='negative_category')
+                   option(value='hotels_reviews') Hotels
+                   option(value='cars_reviews') Cars 
+                   option(value='carti_reviews') Books
+                   option(value='electronics_reviews') Electronics
+                   option(value='restaurants_reviews') Restaurants
+           div(id="negative_shadow") 
         else
 
           h3(class="positive_reviews")

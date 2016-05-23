@@ -6,6 +6,8 @@ html
     link(rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css")
     link(rel='stylesheet' href='/stylesheets/style.css')
     link(rel='stylesheet' href='/stylesheets/profilestyle.css')
+    script(type="text/javascript"  src='http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js')
+    script(type'text/javascript' src='/scripts/userProfile.js')
  body
    header
      include ./templates/header.jade 
@@ -15,15 +17,29 @@ html
        div(class="user-info")
          div(id="userpanel")
             div(id="picturediv")
-                img(lass="userprofile" SRC="/images/profile.png" ALT="Home"  width="200" height="200")
-            h1(class="usernameclass") #{username}
+               if pathimage
+                img(lass="userprofile" SRC=pathimage ALT="Home"  width="200" height="200")
+               else 
+                 img(lass="userprofile" SRC='/images/profile.png' ALT="Home"  width="200" height="200") 
+            h1(class="usernameclass" id='username') #{username}
             div(id="shadow")
+         h1 Your's reviews   
+         select(id='category')
+           option(value='hotels_reviews') Hotels
+           option(value='cars_reviews') Cars 
+           option(value='carti_reviews') Books
+           option(value='electronics_reviews') Electronics
+           option(value='restaurants_reviews') Restaurants
          div(id="reviewpanel")
-
        div(id="sugestions")
-          button(type="button"  class="preview_button" id="similar-users") users with similar preferences
+         button(type="button"  class="preview_button" id="similar-users") users with similar preferences
+            
      else
-       h1(class="usernameclass") #{message}
+        h1(class="usernameclass") #{message}
+        div(id="sugestions")
+          button(type="button"  class="preview_button" id="similar-users") users with similar preferences
+     
+     
            
    footer
       include ./templates/footer.jade 
