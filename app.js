@@ -4,6 +4,8 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var parseurl = require('parseurl');
+var session = require('express-session');
 
 var routes = require('./routes/indexv');
 var users = require('./routes/users');
@@ -22,6 +24,7 @@ var about = require('./routes/about');
 var signin=require('./routes/signin');
 var signup=require('./routes/signup');
 var userprofile=require('./routes/userprofile');
+var logout=require('./routes/logout');
 
 
 app.locals.points = "8,713";
@@ -38,6 +41,15 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+
+//session
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true
+}));
+
+
 app.use('/', indexx);
 app.use('/users', users);
 
@@ -49,6 +61,7 @@ app.use('/signin',signin);
 app.use('/signup',signup);
 app.use('/userprofile',userprofile);
 app.use('/verify',verify);
+app.use('/logout',logout);
 
 
 // catch 404 and forward to error handler
@@ -57,6 +70,7 @@ app.use(function(req, res, next) {
   err.status = 404;
   next(err);
 });
+
 
 
 // error handlers
@@ -82,6 +96,9 @@ app.use(function(err, req, res, next) {
     error: {}
   });
 });
+
+
+
 
 
 module.exports = app;

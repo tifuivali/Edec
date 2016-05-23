@@ -11,19 +11,19 @@ html
      include ./templates/header.jade 
 
    div(id="bodydiv")
-   
-   
-
+     if logged==1
        div(class="user-info")
          div(id="userpanel")
             div(id="picturediv")
                 img(lass="userprofile" SRC="/images/profile.png" ALT="Home"  width="200" height="200")
-            h1(class="usernameclass") username
+            h1(class="usernameclass") #{username}
             div(id="shadow")
          div(id="reviewpanel")
 
        div(id="sugestions")
           button(type="button"  class="preview_button" id="similar-users") users with similar preferences
-         
+     else
+       h1(class="usernameclass") #{message}
+           
    footer
       include ./templates/footer.jade 

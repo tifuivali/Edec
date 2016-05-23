@@ -3,9 +3,34 @@ var router = express.Router();
 var oracledb=require('oracledb');
 
 
-router.get('/',function(req,res){
+router.post('/',function(req,res){
+  var username=req.body.username;
+  var pass=req.body.password;
+  var bindVars = 
+   {
+      user:username  , 
+      pass:pass,
+      res: { val:'' , dir: oracledb.BIND_INOUT },
+   }; 
    
-   res.send('okkkk'); 
+  global.connection.execute(
+  "BEGIN check_user(:user,:pass,:res); END;",
+  bindVars,
+  function (err, result)
+  {
+    if (err) { console.error(err.message); 
+         res.render('signin', {status:'Connection error!' ,title: 'sign in',logged:0,username:usernameToSend });
+        return;  
+    }
+    if(result.outBinds.res==1)
+     {
+          req.session.username=username;
+          res.redirect('/');
+     }
+    else  res.render('signin', {status:'Incorect username or password!' ,title: 'sign in',logged:0,username:usernameToSend });
+  });
+    
+    
 });
 
 router.post('/username',function(req,res) {
@@ -14,7 +39,7 @@ router.post('/username',function(req,res) {
   console.log(username);
   var bindVars = 
    {
-      user:username  , // default direction is BIND_IN. Datatype is inferred from the data
+      user:username  , 
       res: { val:'' , dir: oracledb.BIND_INOUT },
    }; 
    

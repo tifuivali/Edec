@@ -22,14 +22,16 @@ nav(class="navbar navbar-default headerNav")
 if (logged==0)
   div(class='headerdiv')
      a(href="/signup" class='abouthref') sign up  |
-     a(href="/signin" class='usershref') sign in
+     a(href="/signin" class='usershref') sign in 
 else
 
-   div(class='headerdiv') Welcome #{username}  
+   div(class='headerdiv') Welcome #{username}!    
        a(class ="a_class" href="#" class='abouthref')
            span(class="glyphicon glyphicon-envelope" aria-hidden="true" style="font-size: 16px")
        a(class ="a_class" href="/userprofile" class='abouthref')
            span(class="glyphicon glyphicon-user" aria-hidden="true")
+       a(class="a_class", href="/logout")
+           span Logout    
  
 
 

@@ -13,6 +13,7 @@ router.post('/verify',function(req,res,next) {
   
   var user_name=req.body.username;
   var name=req.body.name;
+  var prenume=req.body.prenume;
   var email=req.body.email;
   var pass=req.body.password;
   var bindVars = 
@@ -36,12 +37,15 @@ router.post('/verify',function(req,res,next) {
     else 
     {
           
-        global.connection.execute("insert into useri values (:u,:n,:p,:e,:pass)",
-        [user_name,name,'',email,pass],function(err,result){
+        global.connection.execute("begin insert into useri values (:u,:n,:p,:e,:pass); commit; end;",
+        [user_name,name,prenume,email,pass],function(err,result){
            if(err){
                res.render('signup', { status:'Eror ocurred',title: 'sign up',logged:0,username:usernameToSend });
                  return;  
            }
+           req.session.username=user_name;
+           req.session.email=email;
+         
            console.log(result);
            res.render('indexx', {name:'Val',text_test:'Lorem Ipsum is simply dummy ' +
            'text of the printing and typesetting industry. ' +
@@ -50,7 +54,7 @@ router.post('/verify',function(req,res,next) {
            'text of the printing and typesetting industry.' +
            'text of the printing and typesetting industry.' +
            'text of the printing and typesetting industry. ',logged:1,username:user_name});
-         
+           
             
         });
    

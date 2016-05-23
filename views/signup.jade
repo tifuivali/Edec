@@ -28,23 +28,29 @@ html(lang="en")
       div(class="main-login main-center")
             form(class="form-horizontal" method="post" action="http://localhost:3000/signup/verify/")
                 div(class="form-group")
-                    label(for="name" class="cols-sm-2 control-label") Your Name
+                    label(for="name" class="cols-sm-2 control-label") Your First Name
                     div(class="cols-sm-10")
                         div(class="input-group")
                             span(class="input-group-addon")
                               i(class="fa fa-user fa" aria-hidden="true")
                               
-                            input(type="text" class="form-control" name="name" id="name"  placeholder="Enter your Name")
-            
-
+                            input(type="text" class="form-control" name="name" id="name"  placeholder="Enter your first name")
                 div(class="form-group")
-                    label(for="email" class="cols-sm-2 control-label") Your Email
+                    label(for="name" class="cols-sm-2 control-label") Your Last Name
                     div(class="cols-sm-10")
                         div(class="input-group")
                             span(class="input-group-addon")
-                               i(class="fa fa-envelope fa" aria-hidden="true")
-                            input(type="text" class="form-control" name="email" id="email"  placeholder="Enter your Email")
-                            span(id='email_err' color='red')
+                              i(class="fa fa-user fa" aria-hidden="true")     
+                            input(type="text" class="form-control" name="prenume" id="prenume"  placeholder="Enter your last name")
+                
+                 div(class="form-group")
+                     label(for="email" class="cols-sm-2 control-label") Your Email
+                     div(class="cols-sm-10")
+                         div(class="input-group")
+                             span(class="input-group-addon")
+                                i(class="fa fa-envelope fa" aria-hidden="true")
+                             input(type="text" class="form-control" name="email" id="email"  placeholder="Enter your Email")
+                             span(id='email_err' color='red')
 
                 div(class="form-group")
                     label(for="username" class="cols-sm-2 control-label") Username
