@@ -12,6 +12,7 @@ var about = require('./routes/about');
 var signin=require('./routes/signin');
 var signup=require('./routes/signup');
 var userprofile=require('./routes/userprofile');
+var verify=require('./routes/verify.js');
 
 var app = express();
 var insert = require('./routes/insert.js');
@@ -47,7 +48,7 @@ app.use('/about', about);
 app.use('/signin',signin);
 app.use('/signup',signup);
 app.use('/userprofile',userprofile);
-
+app.use('/verify',verify);
 
 
 // catch 404 and forward to error handler
