@@ -37,5 +37,50 @@ $(document).ready(function(){
        negative_category=$(this).val();
        getNegative(negative_category);
    });
-    
+   
+   
+   setMostDesirable(); 
+   setMostUnDesirable();
+   setControversial();
 });
+
+
+function setControversial()
+{
+    
+    var category='electronics';
+      $.get(host+'/controversial?category='+category+'&maxrows=5&trim=true',function(data,succes){
+         
+          $("#controversialPanel").html(data); 
+      });
+    
+};
+
+function setMostDesirable()
+{
+      var category='electronics';
+      $.get(host+'/unloged/mostdesirable?category='+category+'&maxrows=3&trim=true',function(data,succes){
+         
+          $("#desirablePanel").html(data); 
+      });
+      category='cars';
+      $.get(host+'/unloged/mostdesirable?category='+category+'&maxrows=3&trim=true',function(data,succes){
+         
+          $("#desirablePanel").append(data); 
+      });
+};
+
+
+function setMostUnDesirable()
+{
+      var category='electronics';
+      $.get(host+'/unloged/mostundesirable?category='+category+'&maxrows=3&trim=true',function(data,succes){
+         
+          $("#undesirablePanel").html(data); 
+      });
+      category='cars';
+      $.get(host+'/unloged/mostundesirable?category='+category+'&maxrows=3&trim=true',function(data,succes){
+         
+          $("#undesirablePanel").append(data); 
+      });
+}

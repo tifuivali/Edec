@@ -15,17 +15,19 @@ div(id="bodydiv")
       div(class="previewTop")
          button(type="button"  class="preview_button") most controversial
             p #{text_test}
+         div(class='' id='controversialPanel')
 
       div(class="previewTop")
            button(type="button"  class="preview_button") most desireble
              p #{text_test}
-
+           div(class='' id='desirablePanel')
        
 
 
       div(class="previewTop")
             button(type="button"  class="preview_button") most undesirable
-            p #{text_test}
+             p #{text_test}
+            div(class='' id='undesirablePanel')
     
    div(class="main-rev")
      div(id="reviews")
@@ -33,11 +35,11 @@ div(id="bodydiv")
             h3(class="positive_reviews")
                 a(href="#" class=abouthref) positive reviews  
                 select(id='pozitive_category')
-                   option(value='hotels_reviews') Hotels
-                   option(value='cars_reviews') Cars 
-                   option(value='carti_reviews') Books
-                   option(value='electronics_reviews') Electronics
-                   option(value='restaurants_reviews') Restaurants
+                   option(value='hotels') Hotels
+                   option(value='cars') Cars 
+                   option(value='books') Books
+                   option(value='electronics') Electronics
+                   option(value='restaurants') Restaurants
             div(id="pozitive_shadow")
          else
          
@@ -49,11 +51,11 @@ div(id="bodydiv")
            h3(class="positive_reviews")
               a(href="#" class='abouthref') negative reviews  
               select(id='negative_category')
-                   option(value='hotels_reviews') Hotels
-                   option(value='cars_reviews') Cars 
-                   option(value='carti_reviews') Books
-                   option(value='electronics_reviews') Electronics
-                   option(value='restaurants_reviews') Restaurants
+                   option(value='hotels') Hotels
+                   option(value='cars') Cars 
+                   option(value='books') Books
+                   option(value='electronics') Electronics
+                   option(value='restaurants') Restaurants
            div(id="negative_shadow") 
         else
 
