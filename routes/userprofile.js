@@ -34,11 +34,25 @@ router.get('/reviews',function(req,res)
           return;
       }  
     var category=req.query.category;
-    var username=req.query.username;   
+    var username=req.query.username;
+    var page=req.query.page;   
     var reviews=[];
-    var review=[];  
-    global.connection.execute('select * from (select * from '+category+' where username=:u) where rownum<10'
-        ,[username], function (err,result){
+    var review=[];
+    /*
+    SELECT * from(
+SELECT f.*, ROWNUM r FROM (
+    	SELECT * FROM hotels_reviews WHERE up_votes-down_votes>20
+    	ORDER BY up_votes-down_votes DESC
+      ) f
+Where ROWNUM <=(1*10))
+WHERE r>((1-1)*10);
+  */  
+   console.log(category);
+    global.connection.execute('SELECT * from('+
+        'SELECT f.*, ROWNUM r FROM ('+
+    	'SELECT * FROM '+category+'_reviews WHERE username=:u'
+        +') f Where ROWNUM <=(:p1*10)) WHERE r>((:p2-1)*10)'
+        ,[username,page,page], function (err,result){
         if(err){console.log(err.message);
                  res.send('Error');
                  return;}
@@ -60,6 +74,23 @@ router.get('/reviews',function(req,res)
               res.render('components/userReviews',{reviews:reviews});
           }
     });
+    
+    
+    
+    
+});
+
+router.get('/export',function(req,res)
+{
+    var category=req.query.category;
+     console.log(category);
+    global.connection.execute('begin exporttables(:t); end;'
+        ,[category], function (err,result){
+        if(err){console.log(err.message);
+                 res.send('Error');
+                 return;}
+        res.send('Succes!');
+    }); 
 });
 
 module.exports = router;

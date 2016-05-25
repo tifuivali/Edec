@@ -70,6 +70,7 @@ header {
 #bodydiv{
   background-color: rgba(157, 157, 186, 0.22);
   overflow: hidden;
+  
 }
 #tops{
   line-height:30px;
@@ -88,14 +89,12 @@ header {
 #reviews{
    background-color:white;
    padding:10px;
-   height:548px;
 
  }
 
 #reviews1{
   background-color:white;
   padding:10px;
-  height:548px;
   text-align: center;
     margin: 10px 0 0;
 }
@@ -129,6 +128,14 @@ header {
 }
 .previewTop{
 
+}
+
+
+
+.review-text{
+    max-width: 700px;
+    word-wrap: break-word;
+    
 }
 
 .positive_reviews a{

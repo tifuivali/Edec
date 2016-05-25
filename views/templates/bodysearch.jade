@@ -1,0 +1,6 @@
+div(class='search' id='searchPanel')
+   each item in products
+     div(class='productSearch')
+       a(href=item.seller)
+          h4 #{item.title}
+       p #{item.deescription}

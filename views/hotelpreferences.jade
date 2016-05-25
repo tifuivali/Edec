@@ -1,0 +1,52 @@
+doctype html
+html
+    head
+        title EDEC
+        link(rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css")
+        link(rel='stylesheet' href='/stylesheets/style.css')
+        link(rel='stylesheet' href='/stylesheets/hotelpref.css')
+    body
+      header
+            include ./templates/header.jade
+      div(id="bodydiv" class="form-body")
+        form(method="POST" , action="/hotelpreferences")
+          input(type="hidden", name="_user", value="POST")
+          p Minimum number of stars
+            input(type="number", name="min_stars")
+          p Maximum number of stars
+            input(type="number", name="max_stars")
+          p Conference room
+            input(type="checkbox", name="conferince_room")
+          p Price minim
+            input(type="number", name="price_min")
+          p Price maxim
+            input(type="number", name="price_max")
+          p Disabled people
+            input(type="checkbox", name="disabled_people")
+          p Pet friendly
+            input(type="checkbox", name="pet_friendly")
+          p Has restaurant
+             input(type="checkbox", name="has_restaurant")
+          p Has a farm
+             input(type="checkbox", name="ferme")
+          p Has playground
+              input(type="checkbox", name="playground")
+          p
+            button(type="submit") Insert data
+          p #{response_text2}
+        form(method="POST" , action="/hotelpreferences_loc")
+           input(type="hidden", name="_user", value="POST")
+           p Country
+              input(type="text", name="country")
+           p City
+              input(type="text", name="city")
+           p
+              button(type="submit") Insert location
+            p #{response_text}
+        form(method="POST" , action="/hotel_types",onchange="this.form.submit()")
+            select(id='types_hotel')
+              option(value='motel') Motel
+              option(value='hostel') Hostel
+              option(value='buisness_hotel') Buisiness Hotel
+              option(value='resort_hotel') Resort Hotel
+              option(value='casino_hotel') Casino Hotel

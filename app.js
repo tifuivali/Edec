@@ -25,7 +25,12 @@ var signin=require('./routes/signin');
 var signup=require('./routes/signup');
 var userprofile=require('./routes/userprofile');
 var logout=require('./routes/logout');
-
+var hotelpreferences=require('./routes/hotelpreferences');
+var hotelpreferences_loc=require('./routes/hotelpreferences_loc');
+var hotel_types=require('./routes/hotel_types');
+var restaurantpref=require('./routes/restaurantpref');
+var restaurant_loc=require('./routes/restaurant_loc');
+var search=require('./routes/search');
 
 app.locals.points = "8,713";
 
@@ -62,6 +67,12 @@ app.use('/signup',signup);
 app.use('/userprofile',userprofile);
 app.use('/verify',verify);
 app.use('/logout',logout);
+app.use('/hotelpreferences',hotelpreferences);
+app.use('/hotelpreferences_loc',hotelpreferences_loc);
+app.use('/hotel_types',hotel_types);
+app.use('/restaurantpref',restaurantpref);
+app.use('/restaurant_loc',restaurant_loc);
+app.use('/search',search);
 
 
 // catch 404 and forward to error handler

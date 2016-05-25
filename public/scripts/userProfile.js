@@ -3,15 +3,35 @@ $(document).ready(function(){
    
    var username=$("#username").text();
    var category=$('#category').val();
-   
+   var page=$("#page_nr").val();
    var getReviews=function(username,category){
-   $.get(host+'/userprofile/reviews?username='+username+'&category='+category,
+   $.get(host+'/userprofile/reviews?username='+username+'&category='+category+'&page='+page,
         function(data,succes){
           
             $("#reviewpanel").html(data);
               
         });
    };
+   
+   $("#export_csv").click(function()
+   {
+       category=category.toUpperCase();
+        $("#state").html('Exporting..'); 
+       $.get(host+'/userprofile/export?category='+category,function(data,succes){
+          
+           $("#state").html(data); 
+       });
+       
+   });
+   
+   $("#next").click(function()
+   {
+       username=$("#username").text();
+       category=$('#category').val();
+       page=parseInt($("#page_nr").val())+1;
+       getReviews(username,category);
+       $("#page_nr").val(page);
+   });
    
    getReviews(username,category);
     
@@ -22,4 +42,5 @@ $(document).ready(function(){
    });
     
 });
+
 

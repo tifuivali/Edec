@@ -6,11 +6,13 @@ html
     link(rel='stylesheet' href='/stylesheets/style.css')
     script(type="text/javascript"  src='http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js')
     script(type="text/javascript"  src='/scripts/index_jQuery.js')
+    script(type="text/javascript"  src='/scripts/searchJquery.js')
   body
     header
         include ./templates/header.jade
-    include ./templates/body.jade
-
+    div(id='body')    
+      include ./templates/body.jade
+   button
    footer
     include ./templates/footer.jade
 

@@ -6,6 +6,7 @@ html
     link(rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css")
     link(rel='stylesheet' href='/stylesheets/style.css')
     link(rel='stylesheet' href='/stylesheets/profilestyle.css')
+    link(rel='stylesheet' href='/stylesheets/hotelpref.css')
     script(type="text/javascript"  src='http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js')
     script(type'text/javascript' src='/scripts/userProfile.js')
  body
@@ -23,14 +24,22 @@ html
                  img(lass="userprofile" SRC='/images/profile.png' ALT="Home"  width="200" height="200") 
             h1(class="usernameclass" id='username') #{username}
             div(id="shadow")
-         h1 Your's reviews   
+             p 
+               a(href="/hotelpreferences" ) Hotel Preferences
+             p  
+               a(href="/restaurantpref" ) Restaurant Preferences
+         h1 Your's reviews  
+         button(id='next') Next
+         input(id='page_nr' value='1') 
+         button(id='export_csv') Export Data
+         span(id='state')
          select(id='category')
-           option(value='hotels_reviews') Hotels
-           option(value='cars_reviews') Cars 
-           option(value='carti_reviews') Books
-           option(value='electronics_reviews') Electronics
-           option(value='restaurants_reviews') Restaurants
-         div(id="reviewpanel")
+           option(value='hotels') Hotels
+           option(value='cars') Cars 
+           option(value='books') Books
+           option(value='electronics') Electronics
+           option(value='restaurants') Restaurants
+         div(id="reviewpanel" class='review-text')
        div(id="sugestions")
          button(type="button"  class="preview_button" id="similar-users") users with similar preferences
             
