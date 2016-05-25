@@ -1,0 +1,45 @@
+doctype html
+html
+    head
+        title EDEC
+        link(rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css")
+        link(rel='stylesheet' href='/stylesheets/style.css')
+        link(rel='stylesheet' href='/stylesheets/hotelpref.css')
+    body
+        header
+            include ./templates/header.jade
+        div(id="bodydiv" class="form-body")
+            form(method="POST" , action="/restaurantpref")
+                input(type="hidden", name="_user", value="POST")
+                p Minimum number of stars
+                    input(type="number", name="min_stars")
+                p Maximum number of stars
+                    input(type="number", name="max_stars")
+                p Vegetarian food
+                    input(type="checkbox", name="vegetarian_food")
+                p Vegan Food
+                    input(type="checkbox", name="vegan_food")
+                p Dietetic Food
+                    input(type="checkbox", name="dietetic_food")
+
+                p
+                    button(type="submit") Insert data
+
+            form(method="POST" , action="/restaurant_loc")
+                input(type="hidden", name="_user", value="POST")
+                p Country
+                    input(type="text", name="country")
+                p City
+                    input(type="text", name="city")
+                p
+                    button(type="submit") Insert location
+                p #{response_text}
+            form(method="POST" , action="/hotel_types",onchange="this.form.submit()")
+                select(id='types_hotel')
+                    option(value='motel') Motel
+                    option(value='hostel') Hostel
+                    option(value='buisness_hotel') Buisiness Hotel
+                    option(value='resort_hotel') Resort Hotel
+                    option(value='casino_hotel') Casino Hotel
+
+
