@@ -1,3 +1,4 @@
+
 var express = require('express');
 var router = express.Router();
 var oracledb=require('oracledb');
@@ -33,5 +34,6 @@ router.post('/', function(req, res,next) {
 
     res.render('restaurantpref', { title: 'restaurant prefferences',logged:0,username:'Cineva',response_text:responsetext});
 });
+
 
 module.exports = router;
