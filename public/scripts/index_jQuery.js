@@ -42,6 +42,7 @@ $(document).ready(function(){
    setMostDesirable(); 
    setMostUnDesirable();
    setControversial();
+   setMatched();
 });
 
 
@@ -55,6 +56,18 @@ function setControversial()
       });
     
 };
+
+
+function setMatched()
+{
+    
+    $("#most_matched").html("Waiting...");
+    $.get(host+"/mostMatch?number=5&trim=true",function(data,succes){
+       
+        $("#most_matched").html(data);
+         
+    });
+}
 
 function setMostDesirable()
 {

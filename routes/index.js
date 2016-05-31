@@ -172,11 +172,14 @@ function getUndesirableElectronics(req,res,maxrows,trim)
         for(var row in result.rows)
         {
             var product=[];
-            product.title=result.rows[row][2]+' '+result.rows[row][1];
+            product.title=result.rows[row][7];
             if(trim!='true')
-            product.description=result.rows[row][5];
-            else product.description=result.rows[row][5].substring(0,30)+'...';
-            product.seller=result.rows[row][7];
+            product.description=result.rows[row][4];
+            else
+              if(result.rows[row][4]) 
+              product.description=result.rows[row][4].substring(0,30)+'...';
+            product.seller=result.rows[row][5];
+            product.image=result.rows[row][9];
             products[row]=product;
         }
           
@@ -209,11 +212,14 @@ function getControversalElectronics(req,res,maxrows,trim)
         for(var row in result.rows)
         {
             var product=[];
-            product.title=result.rows[row][2]+' '+result.rows[row][1];
+            product.title=result.rows[row][7]
             if(trim!='true')
-            product.description=result.rows[row][5];
-            else product.description=result.rows[row][5].substring(0,30)+'...';
-            product.seller=result.rows[row][7];
+            product.description=result.rows[row][4];
+            else
+             if(result.rows[row][4]) 
+             product.description=result.rows[row][4].substring(0,30)+'...';
+            product.seller=result.rows[row][5];
+            product.image=result.rows[row][9]
             products[row]=product;
         }
           
@@ -246,11 +252,14 @@ function getDesirableElectronics(req,res,maxrows,trim)
         for(var row in result.rows)
         {
             var product=[];
-            product.title=result.rows[row][2]+' '+result.rows[row][1];
+            product.title=result.rows[row][7];
             if(trim!='true')
-            product.description=result.rows[row][5];
-            else product.description=result.rows[row][5].substring(0,30)+'...';
-            product.seller=result.rows[row][7];
+            product.description=result.rows[row][4];
+            else
+             if(result.rows[row][4]) 
+             product.description=result.rows[row][4].substring(0,30)+'...';
+            product.seller=result.rows[row][5];
+            product.image=result.rows[row][9];
             products[row]=product;
         }
           
@@ -437,14 +446,53 @@ function viewUnLoggedPage(req,res)
 
 function viewLoggedPage(req,res,username)
 {
-   res.render('indexx', {name:'Val',text_test:'Lorem Ipsum is simply dummy ' +
-  'text of the printing and typesetting industry. ' +
-  'text of the printing and typesetting industry.' +
-  'text of the printing and typesetting industry.' +
-  'text of the printing and typesetting industry.' +
-  'text of the printing and typesetting industry.' +
-  'text of the printing and typesetting industry. ',logged:isLogged,username:username});
+   res.render('indexx', {name:'Val',logged:isLogged,username:username});
   
 };
+
+
+router.get('/mostMatch',function(req,res){
+   var username=req.session.username;
+   var num=req.query.number;
+   var trim=req.query.trim;
+   if(!username)
+   {
+       res.send('You must be logged!');
+       return;
+   }
+   global.connection.execute('select * from '+username+'_MOSTMATCH_ELECTRINICS where rownum<=:n',
+   [num],function(err,result){
+      
+      if(err){
+          res.send("Erorr ocurred!");
+          console.log("Err get matched \n"+err.message);
+          return;
+      }
+      
+      var prds=[];
+      for(var row in result.rows)
+      {
+          var product=[];
+          product.title=result.rows[row][0];
+          if(!trim)
+           product.description=result.rows[row][3];
+          else
+            if(result.rows[row][3])
+            product.description=result.rows[row][3].substring(0,40);
+          product.seller=result.rows[row][1];
+          product.image=result.rows[row][2];
+          console.log(product.image);
+          prds[row]=product;
+      }
+      
+       res.render('components/productTop',{products:prds});
+      
+        
+   });
+   
+   
+   
+    
+});
 
 module.exports = router;

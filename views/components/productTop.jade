@@ -1,5 +1,7 @@
 each prod in products
-  a(href=prod.seller)
-    h5(class='prodTop') #{prod.title}
-  p(class='prodDesc') #{prod.description}
+  div(class='productTop')
+    img(src=prod.image class="img-rounded" width='40' height='40' alt='Product_Image') 
+    a(href=prod.seller)
+      h5(class='prodTop') #{prod.title}
+    p(class='prodDesc') #{prod.description}
     

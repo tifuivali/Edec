@@ -40,7 +40,53 @@ $(document).ready(function(){
        category=$(this).val();
        getReviews(username,category);
    });
+   
+   
+   $("#button_add_preferences").click(function(){
+      
+      var category=$("#categoryPreferences").val();
+      $("#addpreferenceBox").text(category); 
+      if(category=="electronics")
+        addElectronicPreference();
+       
+   });
+   
+   getUserPreference();
+   
+   setImageProfile();
+  
     
 });
+
+function addElectronicPreference()
+{
+    $.get(host+"/electronics/getAddElectronicsPreferencesBox",function(data,succes){
+        
+        $("#userpreference").html(data); 
+    });
+}
+
+
+function getUserPreference()
+{
+    $.get(host+"/electronics/userpreferences",function(data,succes){
+        $("#userpreference").html(data);
+    });
+    
+}
+
+function setImageProfile()
+{
+    $.get(host+"/userprofile/profileimg",function(data,succes){
+       
+        $("#profileIMG").attr({
+           src:data 
+        });
+         
+    });
+}
+
+
+
 
 

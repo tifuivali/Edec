@@ -4,9 +4,9 @@
                var key=$("#key").val()
                var page=$("#page").val();
                $.get(host+"/insert/electronics/?keywords="+key+"&page="+page, function(data, status){
-                     $("#status").append(status);
-                     $("#result").append(data);
-                     $("#page").val(page+1);
+                     $("#status").html(status);
+                     $("#result").text(data);
+                     $("#page").val(parseInt(page)+1);
                      });
               });
        });

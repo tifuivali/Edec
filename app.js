@@ -31,6 +31,9 @@ var hotel_types=require('./routes/hotel_types');
 var restaurantpref=require('./routes/restaurantpref');
 var restaurant_loc=require('./routes/restaurant_loc');
 var search=require('./routes/search');
+var amazonapi=require('./routes/amazonapi');
+var electronic=require('./routes/electronics/electronicsPreferences');
+var eb=require('./routes/tests/ebaytest');
 
 app.locals.points = "8,713";
 
@@ -60,7 +63,7 @@ app.use('/users', users);
 
 app.use('/insert',insert);
 app.use('/login',signin);
-
+app.use('/electronics',electronic);
 app.use('/about', about);
 app.use('/signin',signin);
 app.use('/signup',signup);
@@ -73,6 +76,9 @@ app.use('/hotel_types',hotel_types);
 app.use('/restaurantpref',restaurantpref);
 app.use('/restaurant_loc',restaurant_loc);
 app.use('/search',search);
+app.use('/amazon',amazonapi);
+app.use('/ebay',eb);
+
 
 
 // catch 404 and forward to error handler
