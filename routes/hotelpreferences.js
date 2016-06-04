@@ -23,7 +23,6 @@ router.get('/', function(req, res, next) {
     }
 });
 
-username='usertest';
 router.post('/', function(req, res,next){
     console.log(username);
     min_stars=req.body.min_stars;

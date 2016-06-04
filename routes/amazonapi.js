@@ -1,13 +1,13 @@
 var express = require('express');
 var router = express.Router();
 var oracledb = require('oracledb');
-var amazon = require('amazon-product-api');
-var jsdom = require("jsdom");
-var client = amazon.createClient({
-  awsId: "AKIAI53H7PGMNN4CPO3A",
-  awsSecret: "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",
-  awsTag: "e006a-21"
-});
+// var amazon = require('amazon-product-api');
+// var jsdom = require("jsdom");
+// var client = amazon.createClient({
+//   awsId: "AKIAI53H7PGMNN4CPO3A",
+//   awsSecret: "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",
+//   awsTag: "e006a-21"
+//});
 
 
 

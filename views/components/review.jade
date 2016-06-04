@@ -12,7 +12,7 @@ each review in reviews
                                h5(class="review-author") By #{review.author} ( #{review.source_name!=null ? review.source_name : 'EDEC'} user)
                                h5(class="review-date") #{review.rev_date}
                      div
-                   p #{review.body}
+                      p #{review.body}
                        span(class="up_votes" id="votes") Up Votes: #{review.upVotes}
                        span(class="down_votes" id="votes") Down Votes: #{review.downVotes}
 

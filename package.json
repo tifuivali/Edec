@@ -16,13 +16,14 @@
     "css-what": "^2.1.0",
     "debug": "~2.2.0",
     "ebay-api": "^1.13.0",
+    "expedia": "0.0.3",
     "express": "~4.13.1",
     "express-session": "^1.13.0",
     "jade": "~1.11.0",
     "jsdom": "^9.2.0",
     "morgan": "~1.6.1",
     "multer": "^1.1.0",
-    "oracledb": "^1.9.1",
+    "oracledb": "^1.9.3",
     "pug": "^2.0.0-alpha3",
     "serve-favicon": "~2.3.0"
   }

@@ -299,7 +299,7 @@ router.get('/', function(req, res) {
   {
     user          : "edec",
     password      : "edec",
-    connectString : "localhost/XE"
+    connectString : "79.112.123.254/XE"
   },
   function(err, connection)
   {
@@ -322,7 +322,7 @@ router.get('/', function(req, res) {
     viewUnLoggedPage(req,res);
 });
 
-    populateHotels.get_hotels("Innsbruck", "Austria");
+    // populateHotels.get_hotels("Innsbruck", "Austria");
     //getMostMatchedtoHotels();
 
     console.log('home page!!!!!!!!!!!!!!');
