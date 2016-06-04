@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 .form-body{
     padding:40px;
 }
@@ -32,7 +32,7 @@ label + input {
    but to be sure you could use an id or class for that button */
 input + input {
     float: right;
-=======
+}
 .form-body{
     padding:40px;
 }
@@ -66,5 +66,4 @@ label + input {
    but to be sure you could use an id or class for that button */
 input + input {
     float: right;
->>>>>>> af9c2ace20cd357261701ba50f42916279195469
 }

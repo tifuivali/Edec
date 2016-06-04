@@ -4,6 +4,15 @@ var router = express.Router();
 var oracledb = require('oracledb');
 /* GET home page. */
 isLogged=0;
+var mostMatched = require('./controller/mostMatchedCoroller');
+var youMightLike = require('./controller/youMightLikeController');
+var stayAwayFrom = require('./controller/stayAwayFromController');
+var controversial = require('./controller/controversialController');
+var mostDesirable = require('./controller/mostDesirableController');
+var mostUndesirable = require('./controller/undesirableController');
+var reviewShowing = require('./controller/reviewShowing');
+var populateHotels = require('./populate_hotels/newExpediaHotels');
+
 
 
 
@@ -13,49 +22,77 @@ router.get('/view',function (req, res, next) {
 
   // Write response
   res.end(req.session.views + ' views')
+
+});
+
+
+router.get('/logged/mostMatcedToYou',function (req, res) {
+    var user=req.session.username;
+    var category=req.query.category;
+    console.log("most matched to you.. "+category);
+    if(category==='food')
+    {
+        mostMatched.getMostMatchedToYouFood(req,res,user);
+        return;
+    }
+    else if(category=='hotels'){
+        mostMatched.getMostMatchedToYouHotels(req,res,user);
+        return;
+    }
+
+});
+
+router.get('/logged/stayawayfrom',function (req, res) {
+    var user=req.session.username;
+    var category=req.query.category;
+    console.log("you might like "+category);
+   if(category==='food')
+    {
+        stayAwayFrom.getStayAwayFromFood(req,res,user);
+        return;
+    }
+    else if(category=='hotels'){
+        stayAwayFrom.getStayAwayFromHotels(req,res,user);
+        return;
+    }
+
+});
+
+router.get('/logged/youmightlike',function (req, res) {
+    var user=req.session.username;
+    var category=req.query.category;
+    console.log("you might like "+category);
+    if(category==='food')
+    {
+        youMightLike.getYouMightLikeFood(req,res,user);
+        return;
+    }
+    else if(category=='hotels'){
+        youMightLike.getYouMightLikeHotels(req,res,user);
+        return;
+    }
+
 });
 
 router.get('/controversial',function(req,res) {
-   
-   var category=req.query.category;
-   var maxrows=req.query.maxrows;
-   var trim=req.query.trim;
-   console.log('max'+maxrows);
-   if(category==='electronics')
-   {
+
+    var category=req.query.category;
+    var maxrows=req.query.maxrows;
+    var trim=req.query.trim;
+    console.log('controversial category '+category);
+    if(category==='electronics')
+    {
         getControversalElectronics(req,res,maxrows,trim);
-       return ;
-   }
-   /*
-    else if(category==='cars')
-   {
-       getDesirableCars(req,res,maxrows,trim);
-       return;
-   }
-   */
-    
+        return ;
+    }
+    if(category==='hotels')
+    {
+        controversial.getControversalHotels(req,res);
+        return ;
+    }
+
 });
 
-
-router.get('/unloged/mostdesirable',function(req,res) {
-   
-   var category=req.query.category;
-   var maxrows=req.query.maxrows;
-   var trim=req.query.trim;
-   console.log('max'+maxrows);
-   if(category==='electronics')
-   {
-       getDesirableElectronics(req,res,maxrows,trim);
-       return ;
-   }
-    else if(category==='cars')
-   {
-       getDesirableCars(req,res,maxrows,trim);
-       return;
-   }
-   
-    
-});
 
 router.get('/unloged/mostundesirable',function(req,res) {
    
@@ -68,125 +105,58 @@ router.get('/unloged/mostundesirable',function(req,res) {
        getUndesirableElectronics(req,res,maxrows,trim);
        return;
    }
-   else if(category==='cars')
+   else if(category==='food')
    {
-       getDesirableCars(req,res,maxrows,trim);
+       mostUndesirable.getDesirableCars(req,res,maxrows,trim);
+       return;
+   }
+    else if(category=='hotels'){
+       mostUndesirable.getUndesirableHotels(req,res,maxrows);
        return;
    }
    
-      
+    
+});
+
+router.get('/unloged/mostdesirable',function(req,res) {
+
+    var category=req.query.category;
+    var maxrows=req.query.maxrows;
+    var trim=req.query.trim;
+    console.log('max'+maxrows);
+    if(category==='electronics')
+    {
+        getDesirableElectronics(req,res,maxrows,trim);
+        return;
+    }
+    else if(category==='food')
+    {
+        mostDesirable.getDesirableCars(req,res,maxrows,trim);
+        return;
+    }
+    else if(category=='hotels'){
+        mostDesirable.getDesirableHotels(req,res,maxrows);
+        return;
+    }
+
+
 });
 
 
-function getDesirableCars(req,res,maxrows,trim)
-{
-     global.connection.execute('select * from (select * from CARS_VIEW_DESIRABLE) where rownum<=:r',
-                         [maxrows],function(err,result){
-        
-        if(err){
-            console.log(err.message);
-            res.send('Erorr ocured!');
-            return;
-        }
-        
-        if(result.rows.length<=0)
-        {
-            res.send('No results for this category!');
-            return;
-        }
-       
-       
-       
-        var products=[];
-        for(var row in result.rows)
-        {
-            var product=[];
-            product.title=result.rows[row][3]+' '+result.rows[row][4]+' '+result.rows[row][1];
-            if(trim!='true')
-            product.description=result.rows[row][10];
-            else product.description=result.rows[row][10].substring(0,30)+'...';
-            product.seller=result.rows[row][9];
-            products[row]=product;
-        }
-          
-          res.render('components/productTop',{products:products});
-      });  
-}
+router.get('/unlogged/mostmatched',function(req,res) {
+
+    var category=req.query.category;
+    var maxrows=req.query.maxrows;
+
+    if(category==='hotels')
+    {
+        mostMatched.getMostMatchedtoHotels(req,res,maxrows);
+        return;
+    }
 
 
-function getUndesirableCars(req,res,maxrows,trim)
-{
-     global.connection.execute('select * from (select * from CARS_VIEW_UNDESIRABLE) where rownum<=:r',
-                         [maxrows],function(err,result){
-        
-        if(err){
-            console.log(err.message);
-            res.send('Erorr ocured!');
-            return;
-        }
-        
-        if(result.rows.length<=0)
-        {
-            res.send('No results for this category!');
-            return;
-        }
-       
-       
-       
-       var products=[];
-        for(var row in result.rows)
-        {
-            var product=[];
-            product.title=result.rows[row][3]+' '+result.rows[row][4]+' '+result.rows[row][1];
-            if(trim!='true')
-            product.description=result.rows[row][10];
-            else product.description=result.rows[row][10].substring(0,30)+'...';
-            product.seller=result.rows[row][9];
-            products[row]=product;
-        }
-          
-          res.render('components/productTop',{products:products});
-      });  
-}
 
-function getUndesirableElectronics(req,res,maxrows,trim)
-{
-    global.connection.execute('select * from (select * from ELECTRONICS_VIEW_UNDESIRABLE) where rownum<=:r',
-                         [maxrows],function(err,result){
-        
-        if(err){
-            console.log(err.message);
-            res.send('Erorr ocured!');
-            return;
-        }
-        
-        if(result.rows.length<=0)
-        {
-            res.send('No results for this category!');
-            return;
-        }
-       
-       
-       
-        var products=[];
-        for(var row in result.rows)
-        {
-            var product=[];
-            product.title=result.rows[row][7];
-            if(trim!='true')
-            product.description=result.rows[row][4];
-            else
-              if(result.rows[row][4]) 
-              product.description=result.rows[row][4].substring(0,30)+'...';
-            product.seller=result.rows[row][5];
-            product.image=result.rows[row][9];
-            products[row]=product;
-        }
-          
-          res.render('components/productTop',{products:products});
-      });  
-                    
-};
+});
 
 
 function getControversalElectronics(req,res,maxrows,trim)
@@ -270,148 +240,61 @@ function getDesirableElectronics(req,res,maxrows,trim)
 };
 
 router.get('/unloged/negativeReviews',function(req,res){
-    var category=req.query.category;    
-    global.connection.execute('select * from ( select * from '+category+'_reviews order by down_votes desc) where rownum<5'
-                              ,function(err,result){
-        
-        if(err){
-            console.log(err.message);
-            res.send('Erorr ocured!');
-            return;
-        }
-        
-        var body_index=3;
-        var user_index=1;
-        var upVotes_index=6;
-        var downVotes_index=7;
-        if(category==='electronics')
-        {
-            body_index=3;
-            user_index=1;
-            upVotes_index=6;
-            downVotes_index=7;
-        }
-        else if(category==='hotels')
-        {
-            body_index=5;
-            user_index=1;
-            upVotes_index=6;
-            downVotes_index=7;
-        }
-        else if(category==='books')
-        {
-            body_index=2;
-            user_index=1;
-            upVotes_index=6;
-            downVotes_index=7;
-        }
-        else if(category=='restaurants')
-        {
-            body_index=5;
-            user_index=1;
-            upVotes_index=6;
-            downVotes_index=7;
-        }
-        
-        if(result.rows.length<=0)
-        {
-            res.send('No reviews for this category!');
-            return;
-        }                         
-        var reviews=[];
-          for(var row in result.rows)
-                {
-                 var review=[];
-                 var title=category.substring(0,category.length-9);
-                 review.title=result.rows[row][user_index];
-                 review.body=result.rows[row][body_index];
-                 review.upVotes=result.rows[row][upVotes_index];
-                 review.downVotes=result.rows[row][downVotes_index];
-                 reviews[row]=review;
-                 }
-               // console.log(reviews);
-              res.render('components/review',{reviews:reviews});                       
-                                 
-                                  
-        });
+    var category=req.query.category;
+
+    if (category==='hotels') {
+        reviewShowing.getHotelReviews(category,res,0);
+}
+
+
+    else if (category === 'electronics') {
+        reviewShowing.getElectronicsReviews(category,res,0);
+
+    }
+    else if (category === 'food') {
+
+
+        reviewShowing.getFoodReviews(category,res,0);
+    }
+
                                
     
 });
 
 
-router.get('/unloged/pozitiveReviews',function(req,res){
-    var category=req.query.category;    
-    global.connection.execute('select * from ( select * from '+category+'_reviews order by up_votes desc) where rownum<5'
-                              ,function(err,result){
-        
-        if(err){
-            console.log(err.message);
-            res.send('Erorr ocured!');
-            return;
-        }
-        
-        if(result.rows.length<=0)
-        {
-            res.send('No reviews for this category!');
-            return;
-        }
-        var body_index=3;
-        var user_index=1;
-        var upVotes_index=6;
-        var downVotes_index=7;
-        if(category==='electronics')
-        {
-            body_index=3;
-            user_index=1;
-            upVotes_index=6;
-            downVotes_index=7;
-        }
-        else if(category==='hotels')
-        {
-            body_index=5;
-            user_index=1;
-            upVotes_index=6;
-            downVotes_index=7;
-        }
-        else if(category==='books')
-        {
-            body_index=2;
-            user_index=1;
-            upVotes_index=6;
-            downVotes_index=7;
-        }
-        else if(category=='restaurants')
-        {
-            body_index=5;
-            user_index=1;
-            upVotes_index=6;
-            downVotes_index=7;
-        }
-        
-        
-                                 
-        var reviews=[];
-          for(var row in result.rows)
-                {
-                 var review=[];
-                 var title=category.substring(0,category.length-9);
-                 review.title=result.rows[row][user_index];
-                 review.body=result.rows[row][body_index];
-                 review.upVotes=result.rows[row][upVotes_index];
-                 review.downVotes=result.rows[row][downVotes_index];
-                 reviews[row]=review;
-                 }
-               // console.log(reviews);
-              res.render('components/review',{reviews:reviews});                       
-                                 
-                                  
-        });
-                               
-    
+router.get('/unloged/pozitiveReviews',function(req,res) {
+    var category = req.query.category;
+
+    if (category === 'hotels') {
+        reviewShowing.getHotelReviews(category,res,1);
+
+    }
+    else if (category === 'electronics') {
+        reviewShowing.getElectronicsReviews(category,res,1);
+    }
+    else if (category === 'food') {
+
+
+        reviewShowing.getFoodReviews(category,res,1);
+    }
+
+
+
+
 });
- 
+
+
+var requestify = require('requestify');
+
+
+
+
+
+
+
 router.get('/', function(req, res) {
-    
+
+   console.log("Obtaining DB connection");
    oracledb.getConnection(
   {
     user          : "edec",
@@ -420,7 +303,8 @@ router.get('/', function(req, res) {
   },
   function(err, connection)
   {
-     // res.send(prds[0].product_type);
+      console.log(" DB connection obtained");
+      // res.send(prds[0].product_type);
     if (err) { res.render('index', { title: 'Express',conn:'erorr connection to db'}); return ; }
     global.connection=connection;
      
@@ -437,6 +321,16 @@ router.get('/', function(req, res) {
   else
     viewUnLoggedPage(req,res);
 });
+
+    populateHotels.get_hotels("Innsbruck", "Austria");
+    //getMostMatchedtoHotels();
+
+    console.log('home page!!!!!!!!!!!!!!');
+
+
+
+
+
 });
 
 function viewUnLoggedPage(req,res)

@@ -65,6 +65,7 @@ header {
 
 }
 .footerdiv{
+    width:100%;
   color:#414141;
     padding: 10px 0;
 }
@@ -86,10 +87,11 @@ header {
 #tops{
   line-height:30px;
   background-color:white;
-  height:1107px;
+
   width:370px;
   float:left;
     margin: 30px 0 30px 5%;
+    padding-bottom: 30px;
 
 }
 .main-rev {
@@ -137,16 +139,16 @@ header {
     background-color: transparent;
     font-size: 14px;
 }
-.previewTop{
 
-}
 
 
 
 .review-text{
     max-width: 700px;
+    padding:30px;
     word-wrap: break-word;
-    
+    text-align:justify;
+
 }
 
 .positive_reviews a{
@@ -163,6 +165,8 @@ header {
 #reviews{
   text-align: center;
 
+
+
 }
 #shadow{
 margin-left: 5%;
@@ -171,7 +175,89 @@ margin-left: 5%;
     background: radial-gradient(darkgrey, white, white);
 }
 
+.select_category{
+    margin-top:10px;
+}
+.review{
+
+    padding:10px;
+    padding-right:20px;
+    padding-left:20px;
+    border-bottom: 1px solid #b5b5b5;
+
+}
+.down_votes{
+    margin-left:20px;
+}
+.shadow_review{
+    margin-left: 5%;
+    height: 1px;
+    width:500px ;
+    background: radial-gradient(#e0e0e0, #a3a3a3, white);
+}
+.product-picture{
+    float: left;
+    width: 25%;
+    overflow: hidden;
+}
+.product-description{
+    text-align:justify;
+    overflow: hidden;
+    font-size: 13px;
+    line-height: 16px;
+
+}
+#mostMatchedUsersProfiles{
+    padding-left:20px;
+    padding-right:20px;
+}
+.product-pannel{
+    position:relative;
+    border-bottom: 1px solid #b5b5b5;
+}
+.picture{
+    max-width: 70px;
+    margin-top: 15px;
+}
+.picture_review{
+    float: left;
+    width: 15%;
+    overflow: hidden;
+}
+.title_review{
+    text-align:justify;
+    overflow: hidden;
+}
+#controversialPanel{
+    padding-left:20px;
+    padding-right:20px;
+}
+#undesirablePanel{
+    padding-left:20px;
+    padding-right:20px;
+
+}
+#desirablePanel{
+    padding-left:20px;
+    padding-right:20px;
+}
+.glyphicon-envelope{
+    font-size: 16px;
+    padding: 10px;
+}
+.glyphicon-user{
+    font-size: 16px;
+    padding: 10px;
+}
+.logout{
+    padding:10px;
+}
+#mostMatchedYourProfile{
+    padding:20px;
+}
 
 
-Status API Training Shop Blog About
-© 2016 GitHub, Inc. Terms Privacy Security Contact Help
+
+
+
+

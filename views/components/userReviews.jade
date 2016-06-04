@@ -1,6 +1,7 @@
 each review in reviews
                  div(class='review')
-                   h3 #{review.title}
-                   span Up Votes: #{review.upVotes}
-                   span Down Votes: #{review.downVotes}
-                   p #{review.body}
+                   h3(class="review-title") #{review.title}
+                   span(class="up-votes") Up Votes: #{review.upVotes}
+                   span(class="down-votes") Down Votes: #{review.downVotes}
+
+

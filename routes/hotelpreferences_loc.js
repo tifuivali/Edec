@@ -14,7 +14,8 @@ router.post('/', function(req, res,next) {
     console.log(country);
     console.log(city);
     var response='';
-     var bindVars = 
+    searchArea(req,res);
+     var bindVars =
    {
       user:user_name  ,
       country:country,
@@ -32,12 +33,12 @@ router.post('/', function(req, res,next) {
                 return;
             }
             if(result.outBinds.response.trim()=='inserted'){
-                responsetext='Values inserted'
+                var responsetext='Values inserted'
                 console.log(responsetext);
                 
             }
             else{
-                responsetext='Values canot be inserted!';
+                var responsetext='Values canot be inserted!';
                 console.log(responsetext);
             }
           res.render('hotelpreferences', { title: 'hotel prefferences',logged:0,username:'Cineva',response_text:responsetext });
@@ -49,3 +50,7 @@ router.post('/', function(req, res,next) {
 });
 
 module.exports = router;
+
+function searchArea(req, resp){
+
+}

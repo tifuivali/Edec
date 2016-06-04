@@ -25,13 +25,16 @@ if (logged==0)
      a(href="/signin" class='usershref') sign in 
 else
 
-   div(class='headerdiv') Welcome #{username}!    
-       a(class ="a_class" href="#" class='abouthref')
-           span(class="glyphicon glyphicon-envelope" aria-hidden="true" style="font-size: 16px")
-       a(class ="a_class" href="/userprofile" class='abouthref')
-           span(class="glyphicon glyphicon-user" aria-hidden="true")
+   div(class='headerdiv')
+       a(class="a_class" href="/userprofile" )
+        span Welcome #{username}!
+       a(class ="a_class" href="/userprofile" )
+         span(class="glyphicon glyphicon-user" aria-hidden="true")
+       a(class="a_class" href="#" )
+           span(class="glyphicon glyphicon-envelope" aria-hidden="true" )
+
        a(class="a_class", href="/logout")
-           span Logout    
+           span(class="logout") Logout
  
 
 

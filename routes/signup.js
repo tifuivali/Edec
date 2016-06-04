@@ -48,11 +48,7 @@ router.post('/verify',function(req,res,next) {
          
            console.log(result);
            res.render('indexx', {name:'Val',text_test:'Lorem Ipsum is simply dummy ' +
-           'text of the printing and typesetting industry. ' +
-           'text of the printing and typesetting industry.' +
-           'text of the printing and typesetting industry.' +
-           'text of the printing and typesetting industry.' +
-           'text of the printing and typesetting industry.' +
+
            'text of the printing and typesetting industry. ',logged:1,username:user_name});
            
             
