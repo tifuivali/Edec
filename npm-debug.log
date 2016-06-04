@@ -7,8 +7,8 @@
 6 silly lifecycle EDEC@0.0.0~prestart: no script for prestart, continuing
 7 info lifecycle EDEC@0.0.0~start: EDEC@0.0.0
 8 verbose lifecycle EDEC@0.0.0~start: unsafe-perm in lifecycle true
-9 verbose lifecycle EDEC@0.0.0~start: PATH: /usr/local/lib/node_modules/npm/bin/node-gyp-bin:/home/tifuivali/edec project/Edec/node_modules/.bin:/usr/local/bin:/u01/app/oracle/product/11.2.0/xe/bin:/home/tifuivali/jdk1.8.0_77/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
-10 verbose lifecycle EDEC@0.0.0~start: CWD: /home/tifuivali/edec project/Edec
+9 verbose lifecycle EDEC@0.0.0~start: PATH: /usr/local/lib/node_modules/npm/bin/node-gyp-bin:/home/tifuivali/Desktop/Edec/node_modules/.bin:/usr/local/bin:/u01/app/oracle/product/11.2.0/xe/bin:/home/tifuivali/jdk1.8.0_77/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
+10 verbose lifecycle EDEC@0.0.0~start: CWD: /home/tifuivali/Desktop/Edec
 11 silly lifecycle EDEC@0.0.0~start: Args: [ '-c', 'node bin/www' ]
 12 silly lifecycle EDEC@0.0.0~start: Returned: code: 1  signal: null
 13 info lifecycle EDEC@0.0.0~start: Failed to exec start script
@@ -23,7 +23,7 @@
 14 verbose stack     at maybeClose (internal/child_process.js:850:16)
 14 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:215:5)
 15 verbose pkgid EDEC@0.0.0
-16 verbose cwd /home/tifuivali/edec project/Edec
+16 verbose cwd /home/tifuivali/Desktop/Edec
 17 error Linux 4.2.0-36-generic
 18 error argv "/usr/local/bin/node" "/usr/local/bin/npm" "start"
 19 error node v6.1.0

@@ -55,11 +55,6 @@ router.post('/', function(req, res,next){
         has_restaurant = 1;
     }
 
-    if (req.body.ferme === undefined) {
-        ferme = 0;
-    } else {
-        ferme = 1;
-    }
 
     if (req.body.playground === undefined) {
         playground = 0;

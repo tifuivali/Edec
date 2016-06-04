@@ -2,15 +2,11 @@ div(id="bodydiv")
    div(id="tops")
       div(class="previewTop")
             if logged==0
-               button(type="button"  class="preview_button" onclick="alert('Hello world!')") most matched to user profile
-               div(class='' id='most_matched')
+               button(type="button"  class="preview_button") most matched to users profiles
+               div(id='mostMatchedUsersProfiles')
             else
-               
-               button(type="button"   class="preview_button" onclick="alert('Hello world!')") most matched to your profile
-               div(class='' id='most_matched')
-
-            p #{text_test}
-
+               button(type="button"  class="preview_button") most matched to your profile
+               div(id='mostMatchedYourProfile')
        
 
 
@@ -20,7 +16,7 @@ div(id="bodydiv")
          div(class='' id='controversialPanel')
 
       div(class="previewTop")
-           button(type="button"  class="preview_button") most desireble
+           button(type="button"  class="preview_button") most desirable
              p #{text_test}
            div(class='' id='desirablePanel')
        
@@ -34,35 +30,39 @@ div(id="bodydiv")
    div(class="main-rev")
      div(id="reviews")
          if logged==0
-            h3(class="positive_reviews")
-                a(href="#" class=abouthref) positive reviews  
-                select(id='pozitive_category')
-                   option(value='hotels') Hotels
-                   option(value='cars') Cars 
-                   option(value='books') Books
-                   option(value='electronics') Electronics
-                   option(value='restaurants') Restaurants
+            h1(class="positive_reviews")
+                a(href="#" class=abouthref) positive reviews
+             div(id="shadow")
+             select(id='pozitive_category' class="select_category")
+                 option(value='hotels') Hotels
+                 option(value='food') Food
+                  option(value='electronics') Electronics
             div(class='review-text' id="pozitive_shadow")
          else
          
           h3(class="positive_reviews")
              a(href="#" class=abouthref) you might like...
-          div(id="shadow") 
-     div(id="reviews1")
+          div(id="shadow")
+             select(id='logged_pozitive_category' class="select_category")
+                option(value='hotels') Hotels
+                option(value='food') Food
+                option(value='electronics') Electronics
+            div(class='review-text' id="you_might_like")
+
+       div(id="reviews1")
         if logged==0
-           h3(class="positive_reviews")
-              a(href="#" class='abouthref') negative reviews  
-              select(id='negative_category')
+           h1(class="positive_reviews")
+              a(href="#" class='abouthref') negative reviews
+            div(id="shadow")
+              select(id='negative_category' class="select_category")
                    option(value='hotels') Hotels
-                   option(value='cars') Cars 
-                   option(value='books') Books
+                   option(value='food') Food
                    option(value='electronics') Electronics
-                   option(value='restaurants') Restaurants
            div(class='review-text' id="negative_shadow") 
         else
 
           h3(class="positive_reviews")
               a(href="#" class='abouthref') stay away from...
           div(id="shadow")
-
+          div(class='review-text' id="stay_away_from")
 

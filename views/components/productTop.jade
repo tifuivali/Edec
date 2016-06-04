@@ -1,12 +1,13 @@
-each prod in products
-  div(class='productTop')
-    img(src=prod.picture class="img-rounded" width='40' height='40' alt='Product_Image')
-    a(href='/follow?category='+prod.category+'&image='+prod.picture+'&title='+prod.title)
-     span(class='') Follow      
-    a(href=prod.seller)
-      h5(class='prodTop') #{prod.title}
-    p(class='prodDesc') #{prod.description}
-    
-    
-    //picture
-    
+each product in products
+          div(class="product-pannel")
+              div(class="product-picture")
+                a(href=product.seller)
+                  img(class="picture" SRC=product.picture ALT="Home")
+              div(class="product-description")
+                a(href="#")
+                  h5(class='prodTop') #{product.title}
+                p #{product.location}
+                p #{product.nr_users}
+                p #{product.nr_users1}
+                p #{product.nr_users2}
+                p(class='prodDesc') #{product.description}

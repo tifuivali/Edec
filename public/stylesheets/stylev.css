@@ -2,7 +2,6 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
     margin: 0;
 }
-<<<<<<< HEAD
 a {
   color: #00b7ff;
 }
@@ -39,7 +38,6 @@ table th {
 table th.last {
   border-right: none;
 }
-=======
 header {
     background: #ff6c10;
     overflow: hidden;
@@ -190,6 +188,3 @@ margin-left: 5%;
     background: radial-gradient(darkgrey, white, white);
 }
 
-
-
->>>>>>> 7b7d2ffd9731e1bef571ebea77e4be55d768d224

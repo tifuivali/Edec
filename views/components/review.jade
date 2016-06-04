@@ -1,7 +1,18 @@
 each review in reviews
                  div(class='review')
-                   img(class="img-circle" alt='IMG' width=100 height=100 src=review.userimg)
-                   h3 #{review.title}
-                   span Up Votes: #{review.upVotes}
-                   span Down Votes: #{review.downVotes}
+                     div(class='title-picture')
+                         div(class='picture_review')
+                             a(href=review.link class='abouthref')
+                                img(class="picture" SRC=review.picture ALT="Home")
+                         div(class='title_review')
+                               h4
+                                 a(href='#' class='abouthref') #{review.title}
+                                 |  -  #{review.location}
+
+                               h5(class="review-author") By #{review.author} ( #{review.source_name!=null ? review.source_name : 'EDEC'} user)
+                               h5(class="review-date") #{review.rev_date}
+                     div
                    p #{review.body}
+                       span(class="up_votes" id="votes") Up Votes: #{review.upVotes}
+                       span(class="down_votes" id="votes") Down Votes: #{review.downVotes}
+
