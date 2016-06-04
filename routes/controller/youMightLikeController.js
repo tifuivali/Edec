@@ -50,5 +50,35 @@ module.exports = {
     
             });
     }
-
+    ,
+    getYouMightLikeElectronics: function (req,res,user){
+        
+        global.connection.execute('select * from (select * from '+user+"_MOSTMATCH_ELECTRINICS where prg<0.33) where rownum<=5",
+         function(err,result){
+            
+            if(err)
+            {
+                console.log(err.message);
+                res.send("Must have minimim a preference for this category!");
+                return;
+            }
+            
+            var products=[];
+                for(var row in result.rows)
+                {
+                    var product=[];
+    
+                    product.title=result.rows[row][0];
+                    product.body=result.rows[row][3];
+                    product.picture=result.rows[row][2];
+                    product.link=result.rows[row][1];
+    
+                    products[row]=product;
+                }
+                // console.log(reviews);
+                res.render('components/productMatched',{products:products});
+             
+         });
+        
+    }
 };

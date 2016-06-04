@@ -72,6 +72,11 @@ router.get('/logged/youmightlike',function (req, res) {
         youMightLike.getYouMightLikeHotels(req,res,user);
         return;
     }
+    else if(category=='electronics')
+    {
+         youMightLike.getYouMightLikeElectronics(req,res,user);
+         return;
+    }
 
 });
 
@@ -120,29 +125,33 @@ router.get('/unloged/mostundesirable',function(req,res) {
 });
 
 
-router.get('/unloged/mostundesirable',function(req,res) {
-   
-   var category=req.query.category;
-   var maxrows=req.query.maxrows;
-   var trim=req.query.trim;
-   console.log('max'+maxrows);
-   if(category==='electronics')
-   {
-       getUndesirableElectronics(req,res,maxrows,trim);
-       return;
-   }
-   else if(category==='food')
-   {
-       mostUndesirable.getDesirableCars(req,res,maxrows,trim);
-       return;
-   }
+router.get('/unloged/mostdesirable',function(req,res) {
+
+    var category=req.query.category;
+    var maxrows=req.query.maxrows;
+    var trim=req.query.trim;
+    console.log('max'+maxrows);
+    if(category==='electronics')
+    {
+        getDesirableElectronics(req,res,maxrows,trim);
+        return;
+    }
+    else if(category==='food')
+    {
+        mostDesirable.getDesirableCars(req,res,maxrows,trim);
+        return;
+    }
     else if(category=='hotels'){
-       mostUndesirable.getUndesirableHotels(req,res,maxrows);
-       return;
-   }
-   
-    
+        mostDesirable.getDesirableHotels(req,res,maxrows);
+        return;
+    }
+
+
 });
+
+
+
+
 
 
 function getUndesirableElectronics(req,res,maxrows,trim)
@@ -173,7 +182,7 @@ function getUndesirableElectronics(req,res,maxrows,trim)
             product.description=result.rows[row][4];
             else
               if(result.rows[row][4]) 
-              product.description=result.rows[row][4].substring(0,30)+'...';
+              product.description=result.rows[row][4].substring(0,100)+'...';
             product.seller=result.rows[row][5];
             product.picture=result.rows[row][9];
             product.category='electronics';
@@ -185,29 +194,6 @@ function getUndesirableElectronics(req,res,maxrows,trim)
                     
 };
 
-router.get('/unloged/pozitiveReviews',function(req,res){
-    var category=req.query.category;
-    var maxrows=req.query.maxrows;
-    var trim=req.query.trim;
-    console.log('max'+maxrows);
-    if(category==='electronics')
-    {
-        getDesirableElectronics(req,res,maxrows,trim);
-        return;
-    }
-    else if(category==='food')
-    {
-        mostDesirable.getDesirableCars(req,res,maxrows,trim);
-        return;
-    }
-    else if(category=='hotels'){
-        mostDesirable.getDesirableHotels(req,res,maxrows);
-        return;
-    }
-
-
-});
-
 
 router.get('/unlogged/mostmatched',function(req,res) {
 
@@ -218,6 +204,11 @@ router.get('/unlogged/mostmatched',function(req,res) {
     {
         mostMatched.getMostMatchedtoHotels(req,res,maxrows);
         return;
+    }
+    
+    if(category=='electronics')
+    {
+        res.send('Not Implemented yet!');
     }
 
 
@@ -254,7 +245,7 @@ function getControversalElectronics(req,res,maxrows,trim)
             product.description=result.rows[row][4];
             else
              if(result.rows[row][4]) 
-             product.description=result.rows[row][4].substring(0,30)+'...';
+             product.description=result.rows[row][4].substring(0,100)+'...';
             product.seller=result.rows[row][5];
             product.picture=result.rows[row][9]
             product.category='electronics';
@@ -295,7 +286,7 @@ function getDesirableElectronics(req,res,maxrows,trim)
             product.description=result.rows[row][4];
             else
              if(result.rows[row][4]) 
-             product.description=result.rows[row][4].substring(0,30)+'...';
+             product.description=result.rows[row][4].substring(0,100)+'...';
             product.seller=result.rows[row][5];
             product.picture=result.rows[row][9];
             product.category='electronics';
@@ -440,7 +431,7 @@ router.get('/mostMatch',function(req,res){
            product.description=result.rows[row][3];
           else
             if(result.rows[row][3])
-            product.description=result.rows[row][3].substring(0,40);
+            product.description=result.rows[row][3].substring(0,100);
           product.seller=result.rows[row][1];
           product.picture=result.rows[row][2];
           console.log(product.picture);

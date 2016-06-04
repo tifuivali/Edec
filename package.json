@@ -24,10 +24,7 @@
     "jsdom": "^9.2.0",
     "morgan": "~1.6.1",
     "multer": "^1.1.0",
-<<<<<<< HEAD
-=======
     "nodemailer": "^2.4.2",
->>>>>>> 7526f79935d8fffa4b83bf9ae430022a7d0f7b7b
     "oracledb": "^1.9.3",
     "pug": "^2.0.0-alpha3",
     "requestify": "^0.1.17",

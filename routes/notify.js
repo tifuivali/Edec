@@ -30,7 +30,7 @@ router.get('/test',function(req,res){
 router.get('/start',function(req,res){
    
    var pass=req.query.pass;
-   if(!pass=='edecYAH')
+   if(pass!='edecYAH')
    {
        res.send("Must be admin~!");
        return;
@@ -48,7 +48,7 @@ router.get('/start',function(req,res){
             var username=result.rows[row][0];
             var email=result.rows[row][1];
             console.log('user: '+username+" email: "+email);
-            global.connection.execute('select * from notication where username=:u and state=1 order by date desc',
+            global.connection.execute('select * from noticari where username=:u and state=1 order by data desc',
             [username],function(err1,result1){
                
                if(err)

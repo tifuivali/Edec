@@ -23,21 +23,35 @@ $(document).ready(function(){
    };
    
    getPozitive(category_pozitive);
-   getNegative(negative_category);
+   getNegative(category_pozitive);
 
 
 
     $("#logged_pozitive_category").change(function(){
 
-        category_pozitive=$(this).val();
-        getYouMightLike(category_pozitive);
-        getStayAwayFrom(category_pozitive);
+        var category=$(this).val();
+        getMostMatchedToYou(category);
+        getYouMightLike(category);
+        getStayAwayFrom(category);
+        setMostDesirable(category);
+        setMostUnDesirable(category);
+        setControversial(category);
+        setMostMatched(category);
+        
     });
     
    $("#pozitive_category").change(function(){
        
        category_pozitive=$(this).val();
        getPozitive(category_pozitive);
+       getNegative(category_pozitive);
+       var category=category_pozitive;
+       getMostMatchedToYou(category);
+       setMostDesirable(category);
+       setMostUnDesirable(category);
+       setControversial(category);
+       setMostMatched(category);
+       
    });
    
      $("#negative_category").change(function(){
@@ -50,14 +64,18 @@ $(document).ready(function(){
         console.log(this.id.replace("up-votes",""))
         $.get("")
     });
-
-    getMostMatchedToYou($("#logged_pozitive_category").val());
-    getYouMightLike($("#logged_pozitive_category").val());
-    getStayAwayFrom($("#logged_pozitive_category").val());
-    setMostDesirable();
-    setMostUnDesirable();
-    setControversial();
-    setMostMatched();
+    
+    var category=$("#logged_pozitive_category").val();
+    if(!category)
+     category=category_pozitive;
+    
+    getMostMatchedToYou(category);
+    getYouMightLike(category);
+    getStayAwayFrom(category);
+    setMostDesirable(category);
+    setMostUnDesirable(category);
+    setControversial(category);
+    setMostMatched(category);
 });
 
 function getMostMatchedToYou(category){
@@ -82,30 +100,29 @@ function getStayAwayFrom(category){
     });
 };
 
-function setMostMatched(){
-    var category='hotels';
-    var maxrows='5';
-    $.get(host+'/unlogged/mostmatched?category='+category+'&maxrows?&trim=true',function(data,succes){
+function setMostMatched(category){
+        var maxrows='5';
+        $.get(host+'/unlogged/mostmatched?category='+category+'&maxrows?&trim=true',function(data,succes){
+  
+          $("#mostMatchedUsersProfiles").html(data);
+        });
 
-        $("#mostMatchedUsersProfiles").html(data);
-    });
 };
 
 
-function setControversial()
+function setControversial(category)
 {
     
-    var category='hotels';
-      $.get(host+'/controversial?category='+category+'&maxrows=5&trim=true',function(data,succes){
+          $.get(host+'/controversial?category='+category+'&maxrows=5&trim=true',function(data,succes){
          
           $("#controversialPanel").html(data); 
-      });
-    
+          });
+      
 };
 
-function setMostDesirable()
+function setMostDesirable(category)
 {
-      var category='hotels';
+      
       $.get(host+'/unloged/mostdesirable?category='+category+'&maxrows=3&trim=true',function(data,succes){
          
           $("#desirablePanel").html(data); 
@@ -113,12 +130,11 @@ function setMostDesirable()
 };
 
 
-function setMostUnDesirable()
+function setMostUnDesirable(category)
 {
-      var category='hotels';
+      
       $.get(host+'/unloged/mostundesirable?category='+category+'&maxrows=3&trim=true',function(data,succes){
          
           $("#undesirablePanel").html(data); 
       });
-}
-
+};

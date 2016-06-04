@@ -92,6 +92,8 @@ module.exports = {
                     review.location = result.rows[row][8];
                     review.author = result.rows[row][1];
                     var nr_random = Math.floor((Math.random() * 3) + 0);
+                    review.picture=result.rows[row][19];
+                    if(!review.picture)
                     review.picture = "/images/electronics" + nr_random + ".png";
                     if (review.author === null) {
                         review.author = "Anonymous";
