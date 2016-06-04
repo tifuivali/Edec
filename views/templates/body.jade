@@ -3,9 +3,11 @@ div(id="bodydiv")
       div(class="previewTop")
             if logged==0
                button(type="button"  class="preview_button" onclick="alert('Hello world!')") most matched to user profile
+               div(class='' id='most_matched')
             else
                
-               button(type="button"  class="preview_button" onclick="alert('Hello world!')") most matched to your profile
+               button(type="button"   class="preview_button" onclick="alert('Hello world!')") most matched to your profile
+               div(class='' id='most_matched')
 
             p #{text_test}
 

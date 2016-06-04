@@ -10,13 +10,7 @@ router.get('/', function(req, res, next) {
       return; 
   });
     
-  res.render('indexx', {name:'Val',text_test:'Lorem Ipsum is simply dummy ' +
-  'text of the printing and typesetting industry. ' +
-  'text of the printing and typesetting industry.' +
-  'text of the printing and typesetting industry.' +
-  'text of the printing and typesetting industry.' +
-  'text of the printing and typesetting industry.' +
-  'text of the printing and typesetting industry. ',logged:0});
+  res.render('indexx', {name:'Val',logged:0});
 });
 
 

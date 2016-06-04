@@ -19,15 +19,32 @@ html
          div(id="userpanel")
             div(id="picturediv")
                if pathimage
-                img(lass="userprofile" SRC=pathimage ALT="Home"  width="200" height="200")
+                img(lass="userprofile" SRC=pathimage ALT="Home" id='profileIMG'  width="200" height="200")
                else 
-                 img(lass="userprofile" SRC='/images/profile.png' ALT="Home"  width="200" height="200") 
+                 img(lass="userprofile" SRC='/images/profile.png' id='profileIMG' ALT="Home"  width="200" height="200")
+               form(action='/userprofile/uploadimg' enctype="multipart/form-data" method='post')
+                   input(type='file' class="glyphicon glyphicon-picture"  name='image' value='Upload Image')
+                   button(type='submit' class='glyphicon glyphicon-circle-arrow-up')
+                  
+                     
             h1(class="usernameclass" id='username') #{username}
             div(id="shadow")
-             p 
-               a(href="/hotelpreferences" ) Hotel Preferences
-             p  
-               a(href="/restaurantpref" ) Restaurant Preferences
+            div(class='preferencesHeader')      
+                    span Your Prefrences:
+                    label Category:
+                    select(id='categoryPreferences')
+                       option(value="electronics") Electronics
+                       option(value="aliments") Aliments
+                       option(value="books") Books
+                       option(value="hotels") Hotels
+            div(class='shadow')
+              button(id='button_add_preferences')
+                 span(class='glyphicon glyphicon-menu-down')           
+            div(class='addpreferenceBox' id="addpreferenceBox")
+            div(class='userpreference' id='userpreference')
+            
+                           
+                  
          h1 Your's reviews  
          button(id='next') Next
          input(id='page_nr' value='1') 

@@ -1,5 +1,8 @@
 var express = require('express');
 var router = express.Router();
+var fs = require('fs');
+var multer  = require('multer');
+var upload = multer({ dest: 'uploads/' });
 
 /* GET home page. */
 var username='';
@@ -92,6 +95,70 @@ router.get('/export',function(req,res)
         res.send('Succes!');
     }); 
 });
+
+
+
+router.get('/profileimg',function(req,res){
+  
+    var username=req.session.username;
+    if(!username)
+    {
+        res.send("You Must be logged!");
+        return;
+    }
+    if(!fileExists(__dirname.substring(0,__dirname.length-7)+'/public/images/profilesIMG/'+username+'.jpg'))
+    {
+        res.send("/images/profile.png");
+        console.log("not   exisssssssstsssssss");
+    }
+    else
+    {
+        res.send("/images/profilesIMG/"+username+".jpg");
+        console.log("exisssssssstsssssss");
+        
+    }
+    
+    
+});
+
+router.post('/uploadimg',upload.single('image'),function(req,res){
+   
+   var username=req.session.username;
+   console.log('user: '+username);
+   if(!username)
+   {
+       res.send('You must be logged!');
+   }
+   
+   fs.readFile(req.file.path,function(err,data){
+      var send=false;
+      var newPath=__dirname.substring(0,__dirname.length-7)+'/public/images/profilesIMG/'+username+'.jpg';
+      fs.writeFile(newPath,data,function(err){
+         
+         res.redirect('/userprofile');
+         
+          
+      });
+     
+       
+   });
+   
+    
+});
+
+
+
+function fileExists(filePath)
+{
+    try
+    {
+        return fs.statSync(filePath).isFile();
+    }
+    catch (err)
+    {
+        return false;
+    }
+}
 
 module.exports = router;
 

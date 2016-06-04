@@ -54,13 +54,15 @@ function searchAndInsertProduct(res,page,key,connection)
   client.itemSearch({
   keywords:key,    
   searchIndex: 'Electronics',
-  itemPage:page
+  itemPage:page,
+  responseGroup:'ItemAttributes'
 }, function(err, results, response) {
   if (err) {
      res.send(err);
   } else {
    // console.log(results);  // products 
-   // res.send(results);
+    res.send(results);
+    /*
    var prds=[];
    for(var i=0;i<10;i++)
    {       
@@ -115,6 +117,7 @@ function searchAndInsertProduct(res,page,key,connection)
           prod.color=itemAttr.Color[0]; 
       }   
       prds[i]=prod;
+      console.log(prod);
       }
       else return; 
    }
@@ -125,7 +128,7 @@ function searchAndInsertProduct(res,page,key,connection)
      for(var i=0;i<10;i++)
       {
       connection.execute(
-      "begin insert into electronics_test values (:pt,:pi,:mn,:br,:os,:p,:des,:ds,:sel,:col,:pr); commit; end;",
+      "begin insert into electronics values (:pt,:pi,:mn,:br,:os,:p,:des,:ds,:sel,:col,:pr); commit; end;",
       [prds[i].product_type,prds[i].product_id,prds[i].model_name,prds[i].brand,prds[i].operating_system,
        prds[i].price,prds[i].description,prds[i].display_size,prds[i].seller,prds[i].color,"processor"],  
       function(err, result)
@@ -139,11 +142,13 @@ function searchAndInsertProduct(res,page,key,connection)
           res.send('<span>'+err+'span');
       }
       else        
-         res.send(prds);
-  
+         res.send("Res: "+prds);
+  */
   }
   
 });
+
+  
 }
 
 function ElectronicProduct()
