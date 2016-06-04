@@ -1,0 +1,36 @@
+doctype html
+html
+  head
+    title EDEC
+    link(rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css")
+    link(rel='stylesheet' href='/stylesheets/style.css')
+    script(type="text/javascript"  src='http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js')
+    script(type="text/javascript"  src='/scripts/index_jQuery.js')
+    script(type="text/javascript"  src='/scripts/searchJquery.js')
+  body
+    header
+        include ./templates/header.jade
+    div(id='body')
+      p #{status}   
+      div(class='container')
+        table(class='table')
+          thead
+           tr
+             td Image
+             td Product Id
+             td Title
+             td Category
+             td Action
+          tbody
+            each product in products
+              tr
+               td 
+                 img(src=product.image alt='image')
+               td #{product.id}
+               td #{product.title}
+               td #{product.category}
+               td 
+                a(href='/unfollow?product_id='+product.id) UnFollow
+                  
+   footer
+    include ./templates/footer.jade

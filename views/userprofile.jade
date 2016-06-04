@@ -22,9 +22,11 @@ html
                 img(lass="userprofile" SRC=pathimage ALT="Home" id='profileIMG'  width="200" height="200")
                else 
                  img(lass="userprofile" SRC='/images/profile.png' id='profileIMG' ALT="Home"  width="200" height="200")
-               form(action='/userprofile/uploadimg' enctype="multipart/form-data" method='post')
+            form(action='/userprofile/uploadimg' enctype="multipart/form-data" method='post')
                    input(type='file' class="glyphicon glyphicon-picture"  name='image' value='Upload Image')
                    button(type='submit' class='glyphicon glyphicon-circle-arrow-up')
+               a(href='/userprofile/viewFollows')
+                 span(class='') View Followed!    
                   
                      
             h1(class="usernameclass" id='username') #{username}

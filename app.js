@@ -34,6 +34,7 @@ var search=require('./routes/search');
 var amazonapi=require('./routes/amazonapi');
 var electronic=require('./routes/electronics/electronicsPreferences');
 var eb=require('./routes/tests/ebaytest');
+var notify=require('./routes/notify');
 
 app.locals.points = "8,713";
 
@@ -78,7 +79,7 @@ app.use('/restaurant_loc',restaurant_loc);
 app.use('/search',search);
 app.use('/amazon',amazonapi);
 app.use('/ebay',eb);
-
+app.use('/notify',notify);
 
 
 // catch 404 and forward to error handler

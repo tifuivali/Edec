@@ -2,6 +2,7 @@
 var express = require('express');
 var router = express.Router();
 var oracledb = require('oracledb');
+var fs=require('fs');
 /* GET home page. */
 isLogged=0;
 var mostMatched = require('./controller/mostMatchedCoroller');
@@ -118,8 +119,73 @@ router.get('/unloged/mostundesirable',function(req,res) {
     
 });
 
-router.get('/unloged/mostdesirable',function(req,res) {
 
+router.get('/unloged/mostundesirable',function(req,res) {
+   
+   var category=req.query.category;
+   var maxrows=req.query.maxrows;
+   var trim=req.query.trim;
+   console.log('max'+maxrows);
+   if(category==='electronics')
+   {
+       getUndesirableElectronics(req,res,maxrows,trim);
+       return;
+   }
+   else if(category==='food')
+   {
+       mostUndesirable.getDesirableCars(req,res,maxrows,trim);
+       return;
+   }
+    else if(category=='hotels'){
+       mostUndesirable.getUndesirableHotels(req,res,maxrows);
+       return;
+   }
+   
+    
+});
+
+
+function getUndesirableElectronics(req,res,maxrows,trim)
+{
+    global.connection.execute('select * from (select * from ELECTRONICS_VIEW_UNDESIRABLE) where rownum<=:r',
+                         [maxrows],function(err,result){
+        
+        if(err){
+            console.log(err.message);
+            res.send('Erorr ocured!');
+            return;
+        }
+        
+        if(result.rows.length<=0)
+        {
+            res.send('No results for this category!');
+            return;
+        }
+       
+       
+       
+        var products=[];
+        for(var row in result.rows)
+        {
+            var product=[];
+            product.title=result.rows[row][7];
+            if(trim!='true')
+            product.description=result.rows[row][4];
+            else
+              if(result.rows[row][4]) 
+              product.description=result.rows[row][4].substring(0,30)+'...';
+            product.seller=result.rows[row][5];
+            product.picture=result.rows[row][9];
+            product.category='electronics';
+            products[row]=product;
+        }
+          
+          res.render('components/productTop',{products:products});
+      });  
+                    
+};
+
+router.get('/unloged/pozitiveReviews',function(req,res){
     var category=req.query.category;
     var maxrows=req.query.maxrows;
     var trim=req.query.trim;
@@ -159,6 +225,7 @@ router.get('/unlogged/mostmatched',function(req,res) {
 });
 
 
+
 function getControversalElectronics(req,res,maxrows,trim)
 {
      global.connection.execute('select * from (select * from ELECTRONICS_VIEW_CONTROVERSIAL) where rownum<=:r',
@@ -189,7 +256,8 @@ function getControversalElectronics(req,res,maxrows,trim)
              if(result.rows[row][4]) 
              product.description=result.rows[row][4].substring(0,30)+'...';
             product.seller=result.rows[row][5];
-            product.image=result.rows[row][9]
+            product.picture=result.rows[row][9]
+            product.category='electronics';
             products[row]=product;
         }
           
@@ -229,7 +297,8 @@ function getDesirableElectronics(req,res,maxrows,trim)
              if(result.rows[row][4]) 
              product.description=result.rows[row][4].substring(0,30)+'...';
             product.seller=result.rows[row][5];
-            product.image=result.rows[row][9];
+            product.picture=result.rows[row][9];
+            product.category='electronics';
             products[row]=product;
         }
           
@@ -244,7 +313,7 @@ router.get('/unloged/negativeReviews',function(req,res){
 
     if (category==='hotels') {
         reviewShowing.getHotelReviews(category,res,0);
-}
+         }
 
 
     else if (category === 'electronics') {
@@ -256,12 +325,23 @@ router.get('/unloged/negativeReviews',function(req,res){
 
         reviewShowing.getFoodReviews(category,res,0);
     }
-
                                
     
 });
 
+function fileExists(filePath)
+{
+    try
+    {
+        return fs.statSync(filePath).isFile();
+    }
+    catch (err)
+    {
+        return false;
+    }
+};
 
+  
 router.get('/unloged/pozitiveReviews',function(req,res) {
     var category = req.query.category;
 
@@ -279,15 +359,7 @@ router.get('/unloged/pozitiveReviews',function(req,res) {
     }
 
 
-
-
 });
-
-
-var requestify = require('requestify');
-
-
-
 
 
 
@@ -320,16 +392,12 @@ router.get('/', function(req, res) {
   }
   else
     viewUnLoggedPage(req,res);
+
 });
 
-    // populateHotels.get_hotels("Innsbruck", "Austria");
-    //getMostMatchedtoHotels();
 
-    console.log('home page!!!!!!!!!!!!!!');
-
-
-
-
+   console.log('home page!!!!!!!!!!!!!!');
+  
 
 });
 
@@ -374,8 +442,9 @@ router.get('/mostMatch',function(req,res){
             if(result.rows[row][3])
             product.description=result.rows[row][3].substring(0,40);
           product.seller=result.rows[row][1];
-          product.image=result.rows[row][2];
-          console.log(product.image);
+          product.picture=result.rows[row][2];
+          console.log(product.picture);
+          product.category='electronics';
           prds[row]=product;
       }
       
@@ -383,8 +452,63 @@ router.get('/mostMatch',function(req,res){
       
         
    });
+    
+});
+
+router.get('/follow',function(req,res){
    
+   var username=req.session.username;
+   var category=req.query.category;
+   var image=req.query.image;
+   var title=req.query.title;
+   var p=[];
+   if(!username)
+   {
+       res.render('follows',{status:'Please Log In!',products:p});
+       return;
+   }
    
+   global.connection.execute('begin follow(:u,:c,:img,:t); end;',
+             [username,category,image,title],function(err,result){
+             
+                 if(err)
+                 {
+                     console.log(err.message);
+                     res.render('follows',{status:'Err ocurred!',products:p,isLogged:1,username:username});
+                     return;
+                 }
+             
+                 res.redirect('/userprofile/viewFollows');
+             
+              
+             });
+    
+});
+
+
+router.get('/unfollow',function(req,res){
+   
+   var username=req.session.username;
+   var product_id=req.query.product_id;
+   var p=[];
+   if(!username)
+   {
+       res.render('follows',{status:'Please Log In!',products:p});
+       return;
+   }
+   
+   global.connection.execute('begin delete from user_watched where username=:u and trim(upper(id_product))=trim(upper(:pid)); commit; end;',
+     [username,product_id],function(err,result){
+        
+        if(err)
+        {
+             res.render('follows',{status:'Err ocured!',products:p});
+              return;
+        }
+        
+        res.redirect('/userprofile/viewFollows');
+         
+     });
    
     
 });
