@@ -2,6 +2,7 @@
 var express = require('express');
 var router = express.Router();
 var oracledb = require('oracledb');
+var fs=require('fs');
 /* GET home page. */
 isLogged=0;
 
@@ -78,76 +79,6 @@ router.get('/unloged/mostundesirable',function(req,res) {
 });
 
 
-function getDesirableCars(req,res,maxrows,trim)
-{
-     global.connection.execute('select * from (select * from CARS_VIEW_DESIRABLE) where rownum<=:r',
-                         [maxrows],function(err,result){
-        
-        if(err){
-            console.log(err.message);
-            res.send('Erorr ocured!');
-            return;
-        }
-        
-        if(result.rows.length<=0)
-        {
-            res.send('No results for this category!');
-            return;
-        }
-       
-       
-       
-        var products=[];
-        for(var row in result.rows)
-        {
-            var product=[];
-            product.title=result.rows[row][3]+' '+result.rows[row][4]+' '+result.rows[row][1];
-            if(trim!='true')
-            product.description=result.rows[row][10];
-            else product.description=result.rows[row][10].substring(0,30)+'...';
-            product.seller=result.rows[row][9];
-            products[row]=product;
-        }
-          
-          res.render('components/productTop',{products:products});
-      });  
-}
-
-
-function getUndesirableCars(req,res,maxrows,trim)
-{
-     global.connection.execute('select * from (select * from CARS_VIEW_UNDESIRABLE) where rownum<=:r',
-                         [maxrows],function(err,result){
-        
-        if(err){
-            console.log(err.message);
-            res.send('Erorr ocured!');
-            return;
-        }
-        
-        if(result.rows.length<=0)
-        {
-            res.send('No results for this category!');
-            return;
-        }
-       
-       
-       
-       var products=[];
-        for(var row in result.rows)
-        {
-            var product=[];
-            product.title=result.rows[row][3]+' '+result.rows[row][4]+' '+result.rows[row][1];
-            if(trim!='true')
-            product.description=result.rows[row][10];
-            else product.description=result.rows[row][10].substring(0,30)+'...';
-            product.seller=result.rows[row][9];
-            products[row]=product;
-        }
-          
-          res.render('components/productTop',{products:products});
-      });  
-}
 
 function getUndesirableElectronics(req,res,maxrows,trim)
 {
@@ -179,7 +110,8 @@ function getUndesirableElectronics(req,res,maxrows,trim)
               if(result.rows[row][4]) 
               product.description=result.rows[row][4].substring(0,30)+'...';
             product.seller=result.rows[row][5];
-            product.image=result.rows[row][9];
+            product.picture=result.rows[row][9];
+            product.category='electronics';
             products[row]=product;
         }
           
@@ -219,7 +151,8 @@ function getControversalElectronics(req,res,maxrows,trim)
              if(result.rows[row][4]) 
              product.description=result.rows[row][4].substring(0,30)+'...';
             product.seller=result.rows[row][5];
-            product.image=result.rows[row][9]
+            product.picture=result.rows[row][9]
+            product.category='electronics';
             products[row]=product;
         }
           
@@ -259,7 +192,8 @@ function getDesirableElectronics(req,res,maxrows,trim)
              if(result.rows[row][4]) 
              product.description=result.rows[row][4].substring(0,30)+'...';
             product.seller=result.rows[row][5];
-            product.image=result.rows[row][9];
+            product.picture=result.rows[row][9];
+            product.category='electronics';
             products[row]=product;
         }
           
@@ -322,14 +256,22 @@ router.get('/unloged/negativeReviews',function(req,res){
           for(var row in result.rows)
                 {
                  var review=[];
+                 var username=result.rows[row][user_index];
                  var title=category.substring(0,category.length-9);
                  review.title=result.rows[row][user_index];
                  review.body=result.rows[row][body_index];
                  review.upVotes=result.rows[row][upVotes_index];
                  review.downVotes=result.rows[row][downVotes_index];
+                 var usrimg='';
+                 if(!fileExists(__dirname.substring(0,__dirname.length-7)+'/public/images/profilesIMG/'+username+'.jpg'))
+                   usrimg='/images/profile.png';
+                 else 
+                   usrimg='/images/profilesIMG/'+username+'.jpg';
+                 review.userimg=usrimg;  
                  reviews[row]=review;
                  }
                // console.log(reviews);
+               
               res.render('components/review',{reviews:reviews});                       
                                  
                                   
@@ -337,6 +279,18 @@ router.get('/unloged/negativeReviews',function(req,res){
                                
     
 });
+
+function fileExists(filePath)
+{
+    try
+    {
+        return fs.statSync(filePath).isFile();
+    }
+    catch (err)
+    {
+        return false;
+    }
+};
 
 
 router.get('/unloged/pozitiveReviews',function(req,res){
@@ -395,10 +349,19 @@ router.get('/unloged/pozitiveReviews',function(req,res){
                 {
                  var review=[];
                  var title=category.substring(0,category.length-9);
-                 review.title=result.rows[row][user_index];
+                 review.title=result.rows[row][user_index]
+                 var username=result.rows[row][user_index];
+                 if(username)
+                  username.trim();
                  review.body=result.rows[row][body_index];
                  review.upVotes=result.rows[row][upVotes_index];
                  review.downVotes=result.rows[row][downVotes_index];
+                 var usrimg='';
+                 if(!fileExists(__dirname.substring(0,__dirname.length-7)+'/public/images/profilesIMG/'+username+'.jpg'))
+                   usrimg='/images/profile.png';
+                 else 
+                   usrimg='/images/profilesIMG/'+username+'.jpg';
+                 review.userimg=usrimg; 
                  reviews[row]=review;
                  }
                // console.log(reviews);
@@ -482,6 +445,7 @@ router.get('/mostMatch',function(req,res){
           product.seller=result.rows[row][1];
           product.image=result.rows[row][2];
           console.log(product.image);
+          product.category='electronics';
           prds[row]=product;
       }
       
@@ -489,8 +453,63 @@ router.get('/mostMatch',function(req,res){
       
         
    });
+    
+});
+
+router.get('/follow',function(req,res){
    
+   var username=req.session.username;
+   var category=req.query.category;
+   var image=req.query.image;
+   var title=req.query.title;
+   var p=[];
+   if(!username)
+   {
+       res.render('follows',{status:'Please Log In!',products:p});
+       return;
+   }
    
+   global.connection.execute('begin follow(:u,:c,:img,:t); end;',
+             [username,category,image,title],function(err,result){
+             
+                 if(err)
+                 {
+                     console.log(err.message);
+                     res.render('follows',{status:'Err ocurred!',products:p,isLogged:1,username:username});
+                     return;
+                 }
+             
+                 res.redirect('/userprofile/viewFollows');
+             
+              
+             });
+    
+});
+
+
+router.get('/unfollow',function(req,res){
+   
+   var username=req.session.username;
+   var product_id=req.query.product_id;
+   var p=[];
+   if(!username)
+   {
+       res.render('follows',{status:'Please Log In!',products:p});
+       return;
+   }
+   
+   global.connection.execute('begin delete from user_watched where username=:u and trim(upper(id_product))=trim(upper(:pid)); commit; end;',
+     [username,product_id],function(err,result){
+        
+        if(err)
+        {
+             res.render('follows',{status:'Err ocured!',products:p});
+              return;
+        }
+        
+        res.redirect('/userprofile/viewFollows');
+         
+     });
    
     
 });

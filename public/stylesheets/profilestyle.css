@@ -43,7 +43,12 @@
     height: 250px;
     width: 250px;
     float: left;
+    padding: 20px;
 }
 .usernameclass{
     color:#ff6c10;
+}
+
+.table{
+    padding: 20px;
 }

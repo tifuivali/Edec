@@ -1,0 +1,16 @@
+
+
+   --pagina Produs.
+   --aranjare user profile --?
+   --most match alimente Bicanca
+   ---user similars  (each for your category) ?
+    --notificarile , similar users message 
+  --trigere notificari foods ,hotels (notificarile se pun in noticari)
+  --your reviews --randez  (vali)
+  ---preferinte hotels , ce e deja setat
+  ---tops scrollable 
+  --foods tops
+  --recomandari electronics
+  --pagina notificari
+
+

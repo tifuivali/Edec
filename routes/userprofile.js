@@ -147,6 +147,44 @@ router.post('/uploadimg',upload.single('image'),function(req,res){
 });
 
 
+router.get('/viewFollows',function(req,res){
+   
+   var username=req.session.username;
+   var p=[];
+   if(!username)
+   {
+       res.render('follows',{status:'Please Log In!',products:p});
+       return;
+   }
+   
+   global.connection.execute('select * from user_watched where username=:u',
+                  [username],function(err1,result1){
+                     
+                     if(err1)
+                     {
+                         console.log(err.message);
+                         res.render('follows',{status:'Err ocurred!',products:p});
+                         return;
+                     }
+                     
+                     var products=[];
+                     for(var row in result1.rows)
+                     {
+                         var product=[];
+                         product.category=result1.rows[row][1];
+                         product.id=result1.rows[row][2];
+                         product.image=result1.rows[row][3];
+                         product.title=result1.rows[row][4];
+                         products[row]=product;
+                     }
+                     
+                     res.render('follows',{products:products,isLogged:1,username:username});
+                     
+                      
+                  });
+    
+});
+
 
 function fileExists(filePath)
 {

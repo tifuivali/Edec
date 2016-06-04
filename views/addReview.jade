@@ -1,0 +1,19 @@
+doctype html
+html
+  head
+    title EDEC
+    link(rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css")
+    link(rel='stylesheet' href='/stylesheets/style.css')
+    script(type="text/javascript"  src='http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js')
+    script(type="text/javascript"  src='/scripts/searchJquery.js')
+  body
+    header
+        include ./templates/header.jade
+    div(id='body')    
+       img(src=prod.image class="img-rounded" width='40' height='40' alt='Product_Image')
+       h3 #{prod.title}
+       span Up votes:#{prod.upVotes} Down Votes:#{prod.downVotes} 
+       input(type='text' id='review' name='review' placeholder='Insert your review')
+       button(class='' id='addReview' value='Add')
+   footer
+    include ./templates/footer.jade

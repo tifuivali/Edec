@@ -1,7 +1,12 @@
 each prod in products
   div(class='productTop')
-    img(src=prod.image class="img-rounded" width='40' height='40' alt='Product_Image') 
+    img(src=prod.picture class="img-rounded" width='40' height='40' alt='Product_Image')
+    a(href='/follow?category='+prod.category+'&image='+prod.picture+'&title='+prod.title)
+     span(class='') Follow      
     a(href=prod.seller)
       h5(class='prodTop') #{prod.title}
     p(class='prodDesc') #{prod.description}
+    
+    
+    //picture
     
