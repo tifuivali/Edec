@@ -15,3 +15,4 @@ utilizate](http://students.info.uaic.ro/~vali.tifui/edec/#tehnologii)<br/>
  - [Componenta 
 echipa](https://github.com/tifuivali/Edec/blob/develop/doc/arhitecture.md#componenta-echipa)<br/>
 
+
