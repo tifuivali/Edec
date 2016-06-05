@@ -36,6 +36,7 @@ module.exports = {
                 product.nr_users1="Up votes: "+result.rows[row][7];
                 product.nr_users2="Down votes: "+result.rows[row][8];
                 product.location=result.rows[row][3]+" "+result.rows[row][2];
+                product.category='hotels';
                 products[row]=product;
             }
 
@@ -84,8 +85,40 @@ module.exports = {
 
         });
 
+},
+getMostMatchedToYouElectronics:function(req,res,user){
+    console.log('User: '+user+ '...'+user.length);
+    global.connection.execute('select * from '+user+'_MOSTMATCH_ELECTRINICS where rownum<=5'
+    ,function(err,result){
+      
+      if(err){
+          res.send("Cannot make statistics with your preferences.");
+          console.log("Err get matched \n"+err.message);
+          return;
+      }
+      
+      var prds=[];
+      for(var row in result.rows)
+      {
+          var product=[];
+          product.title=result.rows[row][0];
+         
+          //product.description=result.rows[row][3];
+          product.description=result.rows[row][3].substring(0,100);
+          product.seller=result.rows[row][1];
+          product.picture=result.rows[row][2];
+          console.log(product.picture);
+          product.category='electronics';
+          prds[row]=product;
+      }
+      
+       res.render('components/productTop',{products:prds});
+      
+        
+   });
+    
 }
 
-
+ 
 
 };

@@ -37,7 +37,7 @@ module.exports = {
                     product.location=result.rows[row][2]+" "+result.rows[row][1];
                     product.nr_pos_reviews="positive reviews: "+result.rows[row][8];
                     product.nr_neg_reviews="negative reviews: "+result.rows[row][9];
-    
+                    product.category='hotels';
                     product.picture=result.rows[row][4];
                     product.link=result.rows[row][5];
     
@@ -72,7 +72,7 @@ module.exports = {
                     product.body=result.rows[row][3];
                     product.picture=result.rows[row][2];
                     product.link=result.rows[row][1];
-    
+                    product.category='electronics';
                     products[row]=product;
                 }
                 // console.log(reviews);

@@ -6,6 +6,9 @@ each product in products
               div(class="product-description")
                 a(href="#")
                   h5(class='prodTop') #{product.title}
+                a(href='/follow?category='+product.category+'&image='+product.picture+'&title='+product.title)
+                 span Follow Me
+                  
                 p #{product.location}
                 p #{product.nr_users}
                 p #{product.nr_users1}

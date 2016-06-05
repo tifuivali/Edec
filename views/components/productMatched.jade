@@ -12,6 +12,8 @@ each product in products
                             h5 #{product.nr_pos_reviews}
                             h5 #{product.nr_neg_reviews}
                     div
+                        a(href='/follow?category='+product.category+'&image='+product.picture+'&title='+product.title)
+                             span Follow Me
                         p #{product.body}
                         span(class="up_votes" id="votes") Up Votes: #{product.upVotes}
                         span(class="down_votes" id="votes") Down Votes: #{product.downVotes}

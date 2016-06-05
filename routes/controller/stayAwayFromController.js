@@ -61,7 +61,7 @@ module.exports = {
             if(err)
             {
                 console.log(err.message);
-                res.send("Must have minimim a preference for this category!");
+                res.send("Must have minimim a preference for this category! or cannot make a statistic!");
                 return;
             }
             

@@ -34,6 +34,7 @@ module.exports = {
                 product.nr_users="Positive reviews: "+result.rows[row][5];
                 product.nr_users1="Negative reviews: "+result.rows[row][6];
                 product.location=result.rows[row][7]+" "+result.rows[row][8];
+                product.category='hotels';
                 products[row]=product;
             }
 

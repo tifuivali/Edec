@@ -33,6 +33,7 @@ module.exports = {
                 //product.nr_users1="Up votes: "+result.rows[row][22];
                 // product.nr_users2="Down votes: "+result.rows[row][23];
                 product.location=result.rows[row][3]+" "+result.rows[row][2];
+                product.category='hotels';
                 products[row]=product;
             }
 

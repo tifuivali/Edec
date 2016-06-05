@@ -25,13 +25,13 @@ html
             form(action='/userprofile/uploadimg' enctype="multipart/form-data" method='post')
                    input(type='file' class="glyphicon glyphicon-picture"  name='image' value='Upload Image')
                    button(type='submit' class='glyphicon glyphicon-circle-arrow-up')
-               a(href='/userprofile/viewFollows')
-                 span(class='') View Followed!    
+            a(href='/userprofile/viewFollows')
+               span(class='') View Follows!    
                   
                      
             h1(class="usernameclass" id='username') #{username}
             div(id="shadow")
-            div(class='preferencesHeader')      
+              div(class='preferencesHeader')      
                     span Your Prefrences:
                     label Category:
                     select(id='categoryPreferences')
@@ -39,11 +39,11 @@ html
                        option(value="aliments") Aliments
                        option(value="books") Books
                        option(value="hotels") Hotels
-            div(class='shadow')
-              button(id='button_add_preferences')
+             div(class='shadow')
+               button(id='button_add_preferences')
                  span(class='glyphicon glyphicon-menu-down')           
-            div(class='addpreferenceBox' id="addpreferenceBox")
-            div(class='userpreference' id='userpreference')
+             div(class='addpreferenceBox' id="addpreferenceBox")
+             div(class='userpreference' id='userpreference')
             
                            
                   

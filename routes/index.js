@@ -29,6 +29,11 @@ router.get('/view',function (req, res, next) {
 
 router.get('/logged/mostMatcedToYou',function (req, res) {
     var user=req.session.username;
+    if(!user)
+    {
+        res.send("Must be logged!");
+        return;
+    }
     var category=req.query.category;
     console.log("most matched to you.. "+category);
     if(category==='food')
@@ -40,11 +45,25 @@ router.get('/logged/mostMatcedToYou',function (req, res) {
         mostMatched.getMostMatchedToYouHotels(req,res,user);
         return;
     }
+    
+    if(category=='electronics')
+    {
+        mostMatched.getMostMatchedToYouElectronics(req,res,user);
+        return;
+    }
+    
+    res.send("Invalid category!");
+    
 
 });
 
 router.get('/logged/stayawayfrom',function (req, res) {
     var user=req.session.username;
+    if(!user)
+    {
+        res.send("Must be logged!");
+        return;
+    }
     var category=req.query.category;
     console.log("you might like "+category);
    if(category==='food')
@@ -56,13 +75,25 @@ router.get('/logged/stayawayfrom',function (req, res) {
         stayAwayFrom.getStayAwayFromHotels(req,res,user);
         return;
     }
-
+    
+    if(category=='electronics')
+    {
+        stayAwayFrom.getStayAwayFromElectronics(req,res,user);
+        return;
+    }
+    res.send("Invalid category!");
+    
 });
 
 router.get('/logged/youmightlike',function (req, res) {
     var user=req.session.username;
     var category=req.query.category;
     console.log("you might like "+category);
+    if(!user)
+    {
+        res.send("Must be logged!");
+        return;
+    }
     if(category==='food')
     {
         youMightLike.getYouMightLikeFood(req,res,user);
@@ -77,7 +108,9 @@ router.get('/logged/youmightlike',function (req, res) {
          youMightLike.getYouMightLikeElectronics(req,res,user);
          return;
     }
-
+   res.send("Invalid category!");
+   
+   
 });
 
 router.get('/controversial',function(req,res) {
@@ -96,6 +129,7 @@ router.get('/controversial',function(req,res) {
         controversial.getControversalHotels(req,res);
         return ;
     }
+    res.send("Invalid category!");
 
 });
 
@@ -120,7 +154,7 @@ router.get('/unloged/mostundesirable',function(req,res) {
        mostUndesirable.getUndesirableHotels(req,res,maxrows);
        return;
    }
-   
+   res.send("Invalid category!");
     
 });
 
@@ -145,7 +179,7 @@ router.get('/unloged/mostdesirable',function(req,res) {
         mostDesirable.getDesirableHotels(req,res,maxrows);
         return;
     }
-
+    res.send("Invalid category!");
 
 });
 
@@ -209,9 +243,10 @@ router.get('/unlogged/mostmatched',function(req,res) {
     if(category=='electronics')
     {
         res.send('Not Implemented yet!');
+        return;
     }
 
-
+    res.send("Invalid category!");
 
 });
 
@@ -304,19 +339,19 @@ router.get('/unloged/negativeReviews',function(req,res){
 
     if (category==='hotels') {
         reviewShowing.getHotelReviews(category,res,0);
+        return;
          }
 
 
     else if (category === 'electronics') {
         reviewShowing.getElectronicsReviews(category,res,0);
-
+        return;
     }
     else if (category === 'food') {
-
-
         reviewShowing.getFoodReviews(category,res,0);
+        return;
     }
-                               
+   res.send("Invalid category!");                        
     
 });
 
@@ -338,17 +373,17 @@ router.get('/unloged/pozitiveReviews',function(req,res) {
 
     if (category === 'hotels') {
         reviewShowing.getHotelReviews(category,res,1);
-
+        return;
     }
     else if (category === 'electronics') {
         reviewShowing.getElectronicsReviews(category,res,1);
+        return;
     }
     else if (category === 'food') {
-
-
         reviewShowing.getFoodReviews(category,res,1);
+        return;
     }
-
+    res.send("Invalid category!");
 
 });
 
@@ -449,6 +484,7 @@ router.get('/mostMatch',function(req,res){
 router.get('/follow',function(req,res){
    
    var username=req.session.username;
+
    var category=req.query.category;
    var image=req.query.image;
    var title=req.query.title;
@@ -480,6 +516,7 @@ router.get('/follow',function(req,res){
 router.get('/unfollow',function(req,res){
    
    var username=req.session.username;
+   console.log("Un Followwwwwwwwwwwww: user: "+username);
    var product_id=req.query.product_id;
    var p=[];
    if(!username)

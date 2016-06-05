@@ -100,6 +100,8 @@ router.get('/export',function(req,res)
 
 router.get('/profileimg',function(req,res){
   
+  
+    //user name-ul luat din sessiune
     var username=req.session.username;
     if(!username)
     {

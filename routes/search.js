@@ -15,8 +15,8 @@ router.get('/',function(req,res)
 
 function searchElectronicProduct(req,res,keyword)
 {
-    keyword=keyword.toUpperCase()+'%';
-     global.connection.execute('select * from electronics where upper(model_name) like :k',
+    keyword='%'+keyword.toUpperCase()+'%';
+     global.connection.execute('select * from (select * from electronics where upper(title) like :k) where rownum<40',
                          [keyword],function(err,result){
         
         if(err){
@@ -38,9 +38,10 @@ function searchElectronicProduct(req,res,keyword)
         {
             var product=[];
             
-            product.title=result.rows[row][2];
-            product.description=result.rows[row][6];
-            product.seller=result.rows[row][8];
+            product.title=result.rows[row][9];
+            product.link=result.rows[row][7];
+            product.picture=result.rows[row][11];
+            product.category='electronics';
             products[row]=product;
         }
           

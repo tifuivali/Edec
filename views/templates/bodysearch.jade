@@ -1,6 +1,21 @@
-div(class='search' id='searchPanel')
-   each item in products
-     div(class='productSearch')
-       a(href=item.seller)
-          h4 #{item.title}
-       p #{item.deescription}
+each product in products
+                div(class='review')
+                    div(class='title-picture')
+                        div(class='picture_review')
+                            a(href=product.link class='abouthref')
+                                img(class="picture" SRC=product.picture ALT="Home")
+                        div(class='title_review')
+                            h4
+                                a(href='#' class='abouthref') #{product.title}
+                                |  -  #{product.location}
+
+                            h5 #{product.nr_pos_reviews}
+                            h5 #{product.nr_neg_reviews}
+                    div
+                       p -------- 
+                       a(href='/follow?category='+product.category+'&image='+product.picture+'&title='+product.title)
+                             span Follow Me
+                       p --------
+                       
+                      
+
