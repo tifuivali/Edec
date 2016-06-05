@@ -57,7 +57,7 @@ http://edec2016.ddns.net/                | Homepage /Search Product ->Aici vor f
 http://edec.ddns.net/signin          | Login
 http://edec2016.ddns.net/signup            |Sign Up
 http://edec2016.ddns.net/userprofile      | User Profile
-edec2016.ddns.net/product/electronics/B00U8KSN4M | Product page
+http://edec2016.ddns.net/product/electronics/B00U8KSN4M | Product page
 http://edec2016.ddns.net/notification       | Notificari 
 
 
@@ -68,7 +68,7 @@ Descriere Api
 Api Rest
 ------------------
 Request       | Descriere    | Necesita Cookie Setat | Format returnat
---------------| ------------- ----------------------- -----
+--------------| -------------| ----------------------| -----
 http://edec2016.ddns.net/unloged/pozitiveReviews?category=[category]  | Ofera primele 4 review-ri cu cele mai multe voturi pozotive. |NU | HTML
 http://edec2016.ddns.net/unloged/negativeReviews?category=[category]      | Ofera primele 4 review-ri  cu cele mai multe voturi negative. | NU | HTML
 http://edec2016.ddns.net/logged/mostMatcedToYou?category=[category]       | Returneaza cele mai potrivite produse pentru user. | DA
