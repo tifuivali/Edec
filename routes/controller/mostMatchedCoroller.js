@@ -29,7 +29,7 @@ module.exports = {
                 product.title=result.rows[row][1];
                 product.description=result.rows[row][6].substring(0,70)+'...';
                 product.seller=result.rows[row][4];
-
+                product.id=result.rows[row][0];
                 product.picture=result.rows[row][5];
                 //product.nr_users="Expedia rating: "+result.rows[row][8];
                 //if (product.nr_users.length>2 ) product.nr_users=product.nr_users.substring(0,20);
@@ -73,9 +73,10 @@ module.exports = {
                 product.title=result.rows[row][1];
                 product.description=result.rows[row][2].substring(0,70)+'...';
                 product.seller=result.rows[row][3];
-
+                product.id=result.rows[row][0];
                 product.picture=result.rows[row][4];
                 product.nr_users="matched to "+result.rows[row][5]+" profiles";
+                product.category='hotels';
                 product.location=result.rows[row][6]+" "+result.rows[row][7];
                 products[row]=product;
             }
@@ -107,6 +108,7 @@ getMostMatchedToYouElectronics:function(req,res,user){
           product.description=result.rows[row][3].substring(0,100);
           product.seller=result.rows[row][1];
           product.picture=result.rows[row][2];
+          product.id=result.rows[row][5];
           console.log(product.picture);
           product.category='electronics';
           prds[row]=product;

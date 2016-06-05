@@ -25,7 +25,7 @@ module.exports = {
                 product.title=result.rows[row][1];
                 product.description=result.rows[row][10].substring(0,70)+'...';
                 product.seller=result.rows[row][6];
-
+                product.id=result.rows[row][0];
                 product.picture=result.rows[row][7];
                 product.nr_users="Expedia rating: "+result.rows[row][8];
                 if (product.nr_users.length>2 ) product.nr_users=product.nr_users.substring(0,20);

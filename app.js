@@ -35,6 +35,7 @@ var amazonapi=require('./routes/amazonapi');
 var electronic=require('./routes/electronics/electronicsPreferences');
 var eb=require('./routes/tests/ebaytest');
 var notify=require('./routes/notify');
+var product=require('./routes/product');
 
 app.locals.points = "8,713";
 
@@ -80,6 +81,7 @@ app.use('/search',search);
 app.use('/amazon',amazonapi);
 app.use('/ebay',eb);
 app.use('/notify',notify);
+app.use('/product',product);
 
 
 // catch 404 and forward to error handler

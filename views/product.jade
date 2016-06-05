@@ -1,0 +1,52 @@
+doctype html
+html
+  head
+    title EDEC
+    link(rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css")
+    link(rel='stylesheet' href='/stylesheets/style.css')
+    link(rel='stylesheet' href='/stylesheets/product.css')
+    script(type="text/javascript"  src='http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js')
+    script(type="text/javascript"  src='/scripts/productCli.js')
+
+
+  body(class="document")
+    header
+      include ./templates/header.jade
+    main(id="productMain" class="col-md-8 col-md-offset-2")
+      section(id="productDetailsSection" class="col-md-12")
+        div(id="productImageContainer" class="col-md-4")
+          div
+            img(src=product.image)
+            a(href='/follow?category='+type+'&image='+product.image+'&title='+product.name)
+               span Follow Me
+          div         
+            h2=productTop
+        div(id="productDetailsContainer" class="col-md-8")
+            h2=product.name
+            p #{product.description}
+      section(id="productReviewSection" class="col-md-12")
+        div(id="reviewsHeader" class="col-md-12")
+          div(class="col-md-3 vcenter")
+            h2="REVIEWS"
+          form(action='/product/addreview?category='+type+'&id='+product.id method='post')   
+            div(class="col-md-7 vcenter")
+              textarea(id="newReview" name='review' placeholder="Write review...")
+            div(class="col-md-2 vcenter")
+              button(class="btn btn-default" type='submit' id='addReview')
+               span(class="glyphicon glyphicon-plus")="Add review"
+        p #{status}      
+        div(id="reviewsListContainer")
+          for review in product.reviews
+            div(class="col-md-12" )
+              div(class="col-md-12 reviewBox clearfix")
+                img(src= review.userImg class="col-md-2")
+                h4(class="col-md-2")=review.userName
+                p(class="col-md-8")=review.reviewMessage
+                div(class="likeButtonContainer")
+                  button(class="btn btn-default likeButton" onclick="like('"+type+"','"+review.id+"', this)")
+                    span(class="glyphicon glyphicon-thumbs-up")=review.upvotes
+                  button(class="btn btn-default dislikeButton" onclick="dislike('"+type+"','"+review.id+"', this)")
+                    span(class="glyphicon glyphicon-thumbs-down")=review.downvotes
+
+    footer
+      include ./templates/footer.jade

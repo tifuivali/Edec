@@ -4,7 +4,7 @@ each product in products
                 a(href=product.seller)
                   img(class="picture" SRC=product.picture ALT="Home")
               div(class="product-description")
-                a(href="#")
+                a(href='/product/'+product.category+'/'+product.id)
                   h5(class='prodTop') #{product.title}
                 a(href='/follow?category='+product.category+'&image='+product.picture+'&title='+product.title)
                  span Follow Me

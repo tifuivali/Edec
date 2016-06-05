@@ -27,9 +27,10 @@ module.exports = {
             {
                 var product=[];
                 product.title=result.rows[row][1];
+               
                 product.description=result.rows[row][2].substring(0,70)+'...';
                 product.seller=result.rows[row][3];
-
+                product.id=result.rows[row][0];
                 product.picture=result.rows[row][4];
                 product.nr_users="Positive reviews: "+result.rows[row][5];
                 product.nr_users1="Negative reviews: "+result.rows[row][6];

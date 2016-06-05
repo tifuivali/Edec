@@ -6,7 +6,7 @@ each product in products
                                 img(class="picture" SRC=product.picture ALT="Home")
                         div(class='title_review')
                             h4
-                                a(href='#' class='abouthref') #{product.title}
+                                a(href='/product/'+product.category+'/'+product.id class='abouthref') #{product.title}
                                 |  -  #{product.location}
 
                             h5 #{product.nr_pos_reviews}

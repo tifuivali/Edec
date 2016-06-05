@@ -1,0 +1,53 @@
+#productMain {
+    margin-top: 30px;
+}
+#productImageContainer img{
+    width:200px;
+}
+#productReviewSection{
+    margin: 20px 0;
+    padding:0;
+    border: 1px black solid;
+}
+
+#reviewsHeader{
+    background-color:#ff6c10;
+    position:relative;
+    padding:20px 0;
+}
+
+#reviewsHeader h2{
+    color:white;
+    margin:0;
+}
+
+#reviewsHeader textarea{
+    height:60px;
+    width:calc(100% - 15px);
+    margin: 0 15px;
+}
+
+#reviewsListContainer>div:nth-child(odd){
+    background:#e2e2e2;
+}
+.vcenter {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+}
+
+.reviewBox{
+    position: relative;
+    margin:15px 0;
+    padding:5px;
+}
+
+.reviewBox p{
+    padding-bottom : 30px;
+}
+
+.reviewBox .likeButtonContainer{
+    position: absolute;
+    bottom:5px;
+    right:5px;
+}

@@ -219,6 +219,7 @@ function getUndesirableElectronics(req,res,maxrows,trim)
               product.description=result.rows[row][4].substring(0,100)+'...';
             product.seller=result.rows[row][5];
             product.picture=result.rows[row][9];
+            product.id=result.rows[row][13];
             product.category='electronics';
             products[row]=product;
         }
@@ -283,6 +284,7 @@ function getControversalElectronics(req,res,maxrows,trim)
              product.description=result.rows[row][4].substring(0,100)+'...';
             product.seller=result.rows[row][5];
             product.picture=result.rows[row][9]
+            product.id=result.rows[row][13];
             product.category='electronics';
             products[row]=product;
         }
@@ -324,6 +326,7 @@ function getDesirableElectronics(req,res,maxrows,trim)
              product.description=result.rows[row][4].substring(0,100)+'...';
             product.seller=result.rows[row][5];
             product.picture=result.rows[row][9];
+            product.id=result.rows[row][13];
             product.category='electronics';
             products[row]=product;
         }
@@ -488,6 +491,7 @@ router.get('/follow',function(req,res){
    var category=req.query.category;
    var image=req.query.image;
    var title=req.query.title;
+   var id=req.query.id;
    var p=[];
    if(!username)
    {

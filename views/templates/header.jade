@@ -15,9 +15,15 @@ nav(class="navbar navbar-default headerNav")
           li
             div(class="searchDiv" )
                div(class="input-group")
+               
                   input(type="text" class="form-control" id='search' placeholder="Search" aria-describedby="basic-addon2")
                   span(class="input-group-addon"  id='bSearch')
                     span(class="glyphicon glyphicon-search" aria-hidden="true" )
+            span(class='glyphicon glyphicon-menu-down') 
+                 select(id='category')
+                     option(value='hotels') Hotels
+                     option(value='electronics') Electronics
+                      
 
 if (logged==0)
   div(class='headerdiv')
