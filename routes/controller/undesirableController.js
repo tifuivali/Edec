@@ -2,7 +2,7 @@ module.exports = {
 
     getUndesirableHotels:function (req,res,maxrows){
     console.log("undesirable hotels...");
-    global.connection.execute('select * from (select * from  hotels where guest_rating is not null order by  guest_rating asc) where rownum<4',
+    global.connection.execute('select * from (select * from  hotels where guest_rating is not null order by  guest_rating asc) where rownum<20',
         function(err,result){
 
             if(err){
@@ -42,6 +42,53 @@ module.exports = {
 
         });
 
-}
+},
+    getUndesirableFood:function (req,res,maxrows){
+        console.log("desirable food...");
+        global.connection.execute('select * from (select food_name,SHORT_DESCRIPTION,FOOD_GROUP, '+
+            ' aliments_info.aliment_reviews(food_id,0) from  food order by ' +
+            ' aliments_info.aliment_reviews(food_id,0) desc) where rownum<20',
+            function(err,result){
+
+                if(err){
+                    console.log(err.message);
+                    res.send('Erorr ocured!');
+                    return;
+                }
+
+                if(result.rows.length<=0)
+                {
+                    res.send('No results for this category!');
+                    return;
+                }
+
+
+
+                var products=[];
+                for(var row in result.rows)
+                {
+                    var product=[];
+                    product.title=result.rows[row][0];
+                    if (result.rows[row][1]!=null){
+                        product.description=result.rows[row][1];
+                    }
+
+
+
+                    var nr_random = Math.floor((Math.random() * 3) + 0);
+                    product.picture = "/images/food" + nr_random + ".jpg";
+                    product.nr_users="Negative reviews: "+result.rows[row][3];
+
+
+
+                    products[row]=product;
+                }
+
+                res.render('components/productTop',{products:products});
+
+
+
+            });
+    }
 
 }

@@ -64,6 +64,39 @@ label + input {
 
 /* only the submit button is matched by this selector,
    but to be sure you could use an id or class for that button */
-input + input {
+#hotel-pref input {
     float: right;
+}
+
+#hotel-pref{
+    padding:15px;
+    width: 450px;
+    background-color: rgb(255, 255, 255);
+    float : left;
+
+
+}
+.checkbox{
+
+}
+.form-body-info{
+    padding:20px;
+   width: 800px;
+    background-color: rgb(255, 255, 255);
+    float:right;
+    height: 530px;
+
+}
+.checkboxdiv{
+    width: 190px;
+}
+.hotel_loc{
+    width:250px;
+}
+.delete_button{
+    float:right;
+
+}
+.delete_pref{
+    float:right;
 }

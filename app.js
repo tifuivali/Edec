@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var parseurl = require('parseurl');
 var session = require('express-session');
+var oracledb=require('oracledb');
 
 var routes = require('./routes/indexv');
 var users = require('./routes/users');
@@ -35,6 +36,8 @@ var amazonapi=require('./routes/amazonapi');
 var electronic=require('./routes/electronics/electronicsPreferences');
 var eb=require('./routes/tests/ebaytest');
 var notify=require('./routes/notify');
+var notifications=require('./routes/notifications');
+var hotelReviews=require('./routes/populate_hotels/hotelReviews');
 
 app.locals.points = "8,713";
 
@@ -80,7 +83,7 @@ app.use('/search',search);
 app.use('/amazon',amazonapi);
 app.use('/ebay',eb);
 app.use('/notify',notify);
-
+app.use('/notifications',notifications);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -116,6 +119,23 @@ app.use(function(err, req, res, next) {
 });
 
 
+oracledb.getConnection(
+    {
+      user          : "edec",
+      password      : "edec",
+      connectString : "79.112.123.254/XE"
+    },
+    function(err, connection) {
+      console.log(" DB connection obtained");
+      // res.send(prds[0].product_type);
+      if (err) {
+        console.log('erorr connection to db');
+        return;
+      }
+      global.connection = connection;
+    });
+
+hotelReviews.populateReviews();
 
 
 

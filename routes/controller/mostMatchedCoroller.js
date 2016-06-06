@@ -4,7 +4,7 @@ module.exports = {
     console.log("most matched to you hotels...");
     global.connection.execute('select * from (select id_hotel,name_hotel, country, city,details_url,' +
         ' thumb_nail_url, description, up_votes, down_votes'+
-        ' from  hotels where hotels_info.is_matched_hotel(:username, id_hotel)=1) where rownum<4',
+        ' from  hotels where hotels_info.is_matched_hotel(:username, id_hotel)=1) where rownum<20',
         [user],
         function(err,result){
 
@@ -49,7 +49,7 @@ module.exports = {
 
     global.connection.execute(
         'select * from (SELECT id_hotel,name_hotel,description, details_url,thumb_nail_url,tops_hotels.nr_matched_users(id_hotel),city,country FROM hotels'+
-        ' where tops_hotels.nr_matched_users(id_hotel)>0  order by tops_hotels.nr_matched_users(id_hotel) desc) where rownum<4 ',
+        ' where tops_hotels.nr_matched_users(id_hotel)>0  order by tops_hotels.nr_matched_users(id_hotel) desc) where rownum<20 ',
         function(err,result){
 
             if(err){
@@ -84,7 +84,99 @@ module.exports = {
 
         });
 
-}
+},
+    getMostMatchedToYouFood:function(req,res,user){
+        console.log("most matched to you food...");
+        global.connection.execute('select * from (select * ' +
+            ' from food where aliments_info.is_matched_aliment(:username, food_id)=1) where rownum<20',
+            [user],
+            function(err,result){
+
+                if(err){
+                    console.log(err.message);
+                    res.send('Erorr ocured!');
+                    return;
+                }
+
+                if(result.rows.length<=0)
+                {
+                    res.send('No results for this category!');
+                    return;
+                }
+
+
+
+                var products=[];
+                for(var row in result.rows)
+                {
+                    var product=[];
+                    product.title=result.rows[row][1];
+                    if (result.rows[row][2]!=null) {
+                        product.description = result.rows[row][2];
+                    }
+                    product.seller=result.rows[row][4];
+
+                    var nr_random = Math.floor((Math.random() * 3) + 0);
+                    product.picture = "/images/food" + nr_random + ".jpg";
+                    //product.nr_users="Expedia rating: "+result.rows[row][8];
+                    //if (product.nr_users.length>2 ) product.nr_users=product.nr_users.substring(0,20);
+                    product.location=result.rows[row][3];
+                    products[row]=product;
+                }
+
+                res.render('components/productTop',{products:products});
+
+
+
+            });
+    },
+    getMostMatchedtoFood:function(req,res,user){
+        console.log("most matched to you food...");
+        global.connection.execute('select * from (select food_name,SHORT_DESCRIPTION,FOOD_GROUP,' +
+            'tops_aliments.nr_matched_users(food_id) ' +
+            ' from food where tops_aliments.nr_matched_users(food_id)>0  order ' +
+            'by tops_aliments.nr_matched_users(food_id)  desc) where rownum<20 ',
+            function(err,result){
+
+                if(err){
+                    console.log(err.message);
+                    res.send('Erorr ocured!');
+                    return;
+                }
+
+                if(result.rows.length<=0)
+                {
+                    res.send('No results for this category!');
+                    return;
+                }
+
+
+
+                var products=[];
+                for(var row in result.rows)
+                {
+                    var product=[];
+                    product.title=result.rows[row][0];
+                    if (result.rows[row][1]){
+                        product.description=result.rows[row][1];
+                    }
+
+
+                    var nr_random = Math.floor((Math.random() * 3) + 0);
+                    product.picture = "/images/food" + nr_random + ".jpg";
+                    //product.nr_users="Expedia rating: "+result.rows[row][8];
+                    //if (product.nr_users.length>2 ) product.nr_users=product.nr_users.substring(0,20);
+                    product.location=result.rows[row][2];
+                    product.nr_users="matched to "+result.rows[row][3]+" profiles";
+                    products[row]=product;
+                }
+
+                res.render('components/productTop',{products:products});
+
+
+
+            });
+    }
 
 
 

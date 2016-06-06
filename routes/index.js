@@ -14,7 +14,7 @@ var mostUndesirable = require('./controller/undesirableController');
 var reviewShowing = require('./controller/reviewShowing');
 var populateHotels = require('./populate_hotels/newExpediaHotels');
 
-
+oracledb.autoCommit = true;
 
 
 router.get('/view',function (req, res, next) {
@@ -86,9 +86,14 @@ router.get('/controversial',function(req,res) {
         getControversalElectronics(req,res,maxrows,trim);
         return ;
     }
-    if(category==='hotels')
+    else if(category==='hotels')
     {
         controversial.getControversalHotels(req,res);
+        return ;
+    }
+    else if(category==='food')
+    {
+        controversial.getControversalFood(req,res);
         return ;
     }
 
@@ -108,7 +113,7 @@ router.get('/unloged/mostundesirable',function(req,res) {
    }
    else if(category==='food')
    {
-       mostUndesirable.getDesirableCars(req,res,maxrows,trim);
+       mostUndesirable.getUndesirableFood(req,res,maxrows,trim);
        return;
    }
     else if(category=='hotels'){
@@ -119,73 +124,8 @@ router.get('/unloged/mostundesirable',function(req,res) {
     
 });
 
+router.get('/unloged/mostdesirable',function(req,res) {
 
-router.get('/unloged/mostundesirable',function(req,res) {
-   
-   var category=req.query.category;
-   var maxrows=req.query.maxrows;
-   var trim=req.query.trim;
-   console.log('max'+maxrows);
-   if(category==='electronics')
-   {
-       getUndesirableElectronics(req,res,maxrows,trim);
-       return;
-   }
-   else if(category==='food')
-   {
-       mostUndesirable.getDesirableCars(req,res,maxrows,trim);
-       return;
-   }
-    else if(category=='hotels'){
-       mostUndesirable.getUndesirableHotels(req,res,maxrows);
-       return;
-   }
-   
-    
-});
-
-
-function getUndesirableElectronics(req,res,maxrows,trim)
-{
-    global.connection.execute('select * from (select * from ELECTRONICS_VIEW_UNDESIRABLE) where rownum<=:r',
-                         [maxrows],function(err,result){
-        
-        if(err){
-            console.log(err.message);
-            res.send('Erorr ocured!');
-            return;
-        }
-        
-        if(result.rows.length<=0)
-        {
-            res.send('No results for this category!');
-            return;
-        }
-       
-       
-       
-        var products=[];
-        for(var row in result.rows)
-        {
-            var product=[];
-            product.title=result.rows[row][7];
-            if(trim!='true')
-            product.description=result.rows[row][4];
-            else
-              if(result.rows[row][4]) 
-              product.description=result.rows[row][4].substring(0,30)+'...';
-            product.seller=result.rows[row][5];
-            product.picture=result.rows[row][9];
-            product.category='electronics';
-            products[row]=product;
-        }
-          
-          res.render('components/productTop',{products:products});
-      });  
-                    
-};
-
-router.get('/unloged/pozitiveReviews',function(req,res){
     var category=req.query.category;
     var maxrows=req.query.maxrows;
     var trim=req.query.trim;
@@ -197,7 +137,7 @@ router.get('/unloged/pozitiveReviews',function(req,res){
     }
     else if(category==='food')
     {
-        mostDesirable.getDesirableCars(req,res,maxrows,trim);
+        mostDesirable.getDesirableFood(req,res,maxrows,trim);
         return;
     }
     else if(category=='hotels'){
@@ -218,6 +158,9 @@ router.get('/unlogged/mostmatched',function(req,res) {
     {
         mostMatched.getMostMatchedtoHotels(req,res,maxrows);
         return;
+    }else if(category==='food'){
+        mostMatched.getMostMatchedtoFood(req,res,maxrows);
+        return; 
     }
 
 
@@ -371,7 +314,7 @@ router.get('/', function(req, res) {
   {
     user          : "edec",
     password      : "edec",
-    connectString : "79.112.123.254/XE"
+    connectString : "79.112.123.254/XE" 
   },
   function(err, connection)
   {

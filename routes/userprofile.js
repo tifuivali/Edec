@@ -3,6 +3,8 @@ var router = express.Router();
 var fs = require('fs');
 var multer  = require('multer');
 var upload = multer({ dest: 'uploads/' });
+var userReviews = require('./userprofile/userReviewsController');
+
 
 /* GET home page. */
 var username='';
@@ -29,8 +31,10 @@ function renderUserPage(req,res,username)
 };
 
 
+
 router.get('/reviews',function(req,res)
 {
+
     if(!req.session.username)
       {
           res.send('Must be authenticated!');
@@ -38,45 +42,23 @@ router.get('/reviews',function(req,res)
       }  
     var category=req.query.category;
     var username=req.query.username;
-    var page=req.query.page;   
-    var reviews=[];
-    var review=[];
-    /*
-    SELECT * from(
-SELECT f.*, ROWNUM r FROM (
-    	SELECT * FROM hotels_reviews WHERE up_votes-down_votes>20
-    	ORDER BY up_votes-down_votes DESC
-      ) f
-Where ROWNUM <=(1*10))
-WHERE r>((1-1)*10);
-  */  
-   console.log(category);
-    global.connection.execute('SELECT * from('+
-        'SELECT f.*, ROWNUM r FROM ('+
-    	'SELECT * FROM '+category+'_reviews WHERE username=:u'
-        +') f Where ROWNUM <=(:p1*10)) WHERE r>((:p2-1)*10)'
-        ,[username,page,page], function (err,result){
-        if(err){console.log(err.message);
-                 res.send('Error');
-                 return;}
-        if(result.rows.length<=0)
-           res.send('No results.');
-        else   
-          {
-              for(var row in result.rows)
-                {
-                 var review=[];
-                 var title=category.substring(0,category.length-9);
-                 review.title=title+' Review';
-                 review.body=result.rows[row][5];
-                 review.upVotes=result.rows[row][6];
-                 review.downVotes=result.rows[row][7];
-                 reviews[row]=review;
-                 }
-               // console.log(reviews);
-              res.render('components/userReviews',{reviews:reviews});
-          }
-    });
+    var page=req.query.page;
+    console.log('In user profile reviews category '+category);
+
+    if(category==='electronics')
+    {
+        userReviews.getUserReviewsElectronics(req,res,username,page);
+
+    }
+    else if(category==='food') {
+        userReviews.getUserReviewsFood(req, res, username, page);
+    }
+
+    else if(category=='hotels'){
+        userReviews.getUserReviewsHotels(req,res,username,page);
+
+    }
+
     
     
     

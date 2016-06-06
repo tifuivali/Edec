@@ -1,19 +1,19 @@
 var host="http://localhost:3000";
-$(document).ready(function(){
-   
-   var username=$("#username").text();
-   var category=$('#category').val();
-   var page=$("#page_nr").val();
-   var getReviews=function(username,category){
-   $.get(host+'/userprofile/reviews?username='+username+'&category='+category+'&page='+page,
-        function(data,succes){
-          
-            $("#reviewpanel").html(data);
-              
-        });
-   };
-   
-   $("#export_csv").click(function()
+    $(document).ready(function(){
+
+        var username=$("#username").text();
+        var category=$('#category').val();
+        var page=$("#page_nr").val();
+        var getReviews=function(username,category,page){
+            $.get(host+'/userprofile/reviews?username='+username+'&category='+category+'&page='+page,
+                function(data,succes){
+
+                    $("#reviewpanel").html(data);
+
+                });
+        };
+
+        $("#export_csv").click(function()
    {
        category=category.toUpperCase();
         $("#state").html('Exporting..'); 
@@ -29,16 +29,16 @@ $(document).ready(function(){
        username=$("#username").text();
        category=$('#category').val();
        page=parseInt($("#page_nr").val())+1;
-       getReviews(username,category);
+       getReviews(username,category,$("#page_nr").val());
        $("#page_nr").val(page);
    });
    
-   getReviews(username,category);
+   getReviews(username,category,1);
     
    $("#category").change(function(){
        
        category=$(this).val();
-       getReviews(username,category);
+       getReviews(username,category,1);
    });
    
    
@@ -50,7 +50,16 @@ $(document).ready(function(){
         addElectronicPreference();
        
    });
-   
+
+    $('#page_nr').keypress(function(event){
+        if(event.keyCode == '13'){
+            var n = $('#page_nr').val();
+            if(!isNaN(parseFloat(n)) && isFinite(n)){
+                getReviews(username,$('#category').val(), $("#page_nr").val())
+            }
+        }
+    })
+
    getUserPreference();
    
    setImageProfile();

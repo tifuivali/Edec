@@ -14,7 +14,7 @@ $(document).ready(function(){
    };
    
    var getNegative=function(category){
-   $.get(host+'/unloged/negativeReviews?category='+negative_category,
+   $.get(host+'/unloged/negativeReviews?category='+category_pozitive,
         function(data,succes){
           
             $("#negative_shadow").html(data);
@@ -22,8 +22,7 @@ $(document).ready(function(){
         });
    };
    
-   getPozitive(category_pozitive);
-   getNegative(negative_category);
+
 
 
 
@@ -32,32 +31,52 @@ $(document).ready(function(){
         category_pozitive=$(this).val();
         getYouMightLike(category_pozitive);
         getStayAwayFrom(category_pozitive);
+        setMostDesirable(category_pozitive);
+        setMostUnDesirable(category_pozitive);
+        setControversial(category_pozitive);
+        getMostMatchedToYou(category_pozitive);
     });
     
    $("#pozitive_category").change(function(){
        
        category_pozitive=$(this).val();
        getPozitive(category_pozitive);
+       getNegative(category_pozitive);
+       setMostDesirable(category_pozitive);
+       setMostUnDesirable(category_pozitive);
+       setControversial(category_pozitive);
+       setMostMatched(category_pozitive);
    });
-   
-     $("#negative_category").change(function(){
-       
-       negative_category=$(this).val();
-       getNegative(negative_category);
-   });
+   //
+   //   $("#negative_category").change(function(){
+   //
+   //     negative_category=$(this).val();
+   //
+   // });
 
     $(".review button").on("click", function(event){
         console.log(this.id.replace("up-votes",""))
         $.get("")
     });
 
-    getMostMatchedToYou($("#logged_pozitive_category").val());
-    getYouMightLike($("#logged_pozitive_category").val());
-    getStayAwayFrom($("#logged_pozitive_category").val());
-    setMostDesirable();
-    setMostUnDesirable();
-    setControversial();
-    setMostMatched();
+
+    if ($("#userlogged").val()==0){
+        setMostDesirable(category_pozitive);
+        setMostUnDesirable(category_pozitive);
+        setControversial(category_pozitive);
+        setMostMatched(category_pozitive);
+        getPozitive(category_pozitive);
+        getNegative(category_pozitive);
+    }
+    else {
+        setMostDesirable($("#logged_pozitive_category").val());
+        setMostUnDesirable($("#logged_pozitive_category").val());
+        setControversial($("#logged_pozitive_category").val());
+        getMostMatchedToYou($("#logged_pozitive_category").val());
+        getYouMightLike($("#logged_pozitive_category").val());
+        getStayAwayFrom($("#logged_pozitive_category").val());
+
+    }
 });
 
 function getMostMatchedToYou(category){
@@ -82,20 +101,20 @@ function getStayAwayFrom(category){
     });
 };
 
-function setMostMatched(){
-    var category='hotels';
+function setMostMatched(category){
+
     var maxrows='5';
-    $.get(host+'/unlogged/mostmatched?category='+category+'&maxrows?&trim=true',function(data,succes){
+    $.get(host+'/unlogged/mostmatched?category='+category,function(data,succes){
 
         $("#mostMatchedUsersProfiles").html(data);
     });
 };
 
 
-function setControversial()
+function setControversial(category)
 {
     
-    var category='hotels';
+
       $.get(host+'/controversial?category='+category+'&maxrows=5&trim=true',function(data,succes){
          
           $("#controversialPanel").html(data); 
@@ -103,9 +122,9 @@ function setControversial()
     
 };
 
-function setMostDesirable()
+function setMostDesirable(category)
 {
-      var category='hotels';
+
       $.get(host+'/unloged/mostdesirable?category='+category+'&maxrows=3&trim=true',function(data,succes){
          
           $("#desirablePanel").html(data); 
@@ -113,9 +132,9 @@ function setMostDesirable()
 };
 
 
-function setMostUnDesirable()
+function setMostUnDesirable(category)
 {
-      var category='hotels';
+
       $.get(host+'/unloged/mostundesirable?category='+category+'&maxrows=3&trim=true',function(data,succes){
          
           $("#undesirablePanel").html(data); 
