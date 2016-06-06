@@ -1,0 +1,9 @@
+div(id="all_locations")
+ p(class="location_par")
+  each location in locations
+          div(class="hotel_loc")
+            p #{location.loc}
+              input(type='hidden' value=location.id)
+              button(type="button"  class="delete_button") Remove
+
+

@@ -1,0 +1,18 @@
+table
+    tr
+        th Sender
+        th Title
+        th Data
+    each message in messages
+        if message.state
+            tr(class='notif bolded')
+                td EDeC
+                td #{message.title}
+                td #{message.data}
+        else
+            tr(class='notif')
+                td EDeC
+                td #{message.title}
+                td #{message.data}
+
+

@@ -1,0 +1,20 @@
+doctype html
+html
+    head
+        title EDEC
+        link(rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css")
+        link(rel='stylesheet' href='/stylesheets/style.css')
+        script(type="text/javascript"  src='http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js')
+
+        script(type="text/javascript"  src='/scripts/searchJquery.js')
+        script(type="text/javascript"  src='/scripts/notifi_jQuery.js')
+    body
+        header
+            include ./templates/header.jade
+        div(id='body')
+            div(id='notif_div')
+
+
+
+        footer
+            include ./templates/footer.jade
