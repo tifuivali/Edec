@@ -9,6 +9,7 @@ html
     link(rel='stylesheet' href='/stylesheets/hotelpref.css')
     script(type="text/javascript"  src='http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js')
     script(type'text/javascript' src='/scripts/userProfile.js')
+    //script(type'text/javascript' src='/scripts/similarsUsersJquery.js')
  body
    header
      include ./templates/header.jade 
@@ -52,15 +53,10 @@ html
          input(id='page_nr' value='1') 
          button(id='export_csv') Export Data
          span(id='state')
-         select(id='category')
-           option(value='hotels') Hotels
-           option(value='cars') Cars 
-           option(value='books') Books
-           option(value='electronics') Electronics
-           option(value='restaurants') Restaurants
          div(id="reviewpanel" class='review-text')
        div(id="sugestions")
          button(type="button"  class="preview_button" id="similar-users") users with similar preferences
+         div(class='similarsUserss' id='usersSimilars')
             
      else
         h1(class="usernameclass") #{message}

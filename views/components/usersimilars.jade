@@ -1,0 +1,23 @@
+-var i=0;
+each user in users
+   div(class='userHead')
+       img(src=user.image class="img-circle" alt=user.name width='30%' height='100')
+       div(class='names_similars')   
+           h3(class='similar_name') #{user.name}
+           span(class='similar_total_name' name=user.name) #{user.nume} #{user.prenume}
+           div(class='userBody')
+            span Send a message:
+            input(type='text' placeholder='Send Message' id='message_'+i )
+            button(class='' id='send_'+i value="Send") Send
+            p(id='send_state_'+i)
+   script.
+      $("#send_#{i}").click(function(){
+      var message=$("#message_#{i}").val();
+      var adress=host+"/usersSimilars/sendMessage?toUser=#{user.name}"+"&message="+message;
+       $.get(adress,function(data,succes){
+         $("#send_state_#{i}").html(data);
+           });
+        });
+ 
+   div(class='shadow')   
+   - i=i+1;

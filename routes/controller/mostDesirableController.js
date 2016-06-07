@@ -41,5 +41,54 @@ module.exports = {
 
 
         });
-}
+},
+
+getDesirableFood:function (req,res,maxrows){
+        console.log("desirable food...");
+        global.connection.execute('select * from (select food_name,SHORT_DESCRIPTION,FOOD_GROUP, '+
+            ' aliments_info.aliment_reviews(food_id,1),food_id from  food order by ' +
+            ' aliments_info.aliment_reviews(food_id,1) desc) where rownum<20',
+            function(err,result){
+
+                if(err){
+                    console.log(err.message);
+                    res.send('Erorr ocured!');
+                    return;
+                }
+
+                if(result.rows.length<=0)
+                {
+                    res.send('No results for this category!');
+                    return;
+                }
+
+
+
+                var products=[];
+                for(var row in result.rows)
+                {
+                    var product=[];
+                    product.title=result.rows[row][0];
+                    if (result.rows[row][1]!=null){
+                        product.description=result.rows[row][1];
+                    }
+
+
+
+                    var nr_random = Math.floor((Math.random() * 3) + 0);
+                    product.picture = "/images/food" + nr_random + ".jpg";
+                    product.nr_users="Positive reviews: "+result.rows[row][3];
+                    product.id=result.rows[row][4];
+                    product.category='food';
+
+
+                    products[row]=product;
+                }
+
+                res.render('components/productTop',{products:products});
+
+
+
+            });
+    }
 }

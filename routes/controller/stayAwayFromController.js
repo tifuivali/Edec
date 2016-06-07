@@ -82,10 +82,58 @@ module.exports = {
                 res.render('components/productMatched',{products:products});
              
          });
+  },
+  
+  getStayAwayFromFood:function (req,res,user){
+    console.log("you might like...");
+
+    global.connection.execute('select * from (select food_name, SHORT_DESCRIPTION,FOOD_GROUP, '+
+        'aliments_info.aliment_reviews(food_id,1), aliments_info.aliment_reviews(food_id,0) '+
+        ',food_id from  food where aliments_info.is_matched_aliment(:username , food_id)=1 and '+
+        '( aliments_info.aliment_reviews(food_id,0)> aliments_info.aliment_reviews(food_id,1))   order by '+
+        ' aliments_info.aliment_reviews(food_id,0)-aliments_info.aliment_reviews(food_id,1) desc) where rownum<20',
+        [user],
+        function(err,result){
+
+            if(err){
+                console.log(err.message);
+                res.send('Erorr ocured!');
+                return;
+            }
+
+            if(result.rows.length<=0)
+            {
+                res.send('No results for this category!');
+                return;
+            }
+
+
+
+            var products=[];
+            for(var row in result.rows)
+            {
+                var product=[];
+
+                product.title=result.rows[row][0];
+                product.body=result.rows[row][1];
+
+
+                product.location=result.rows[row][2];
+                product.nr_pos_reviews="positive reviews: "+result.rows[row][3];
+                product.nr_neg_reviews="negative reviews: "+result.rows[row][4];
+
+                var nr_random = Math.floor((Math.random() * 3) + 0);
+                product.picture = "/images/food" + nr_random + ".jpg";
+                product.id=result.rows[row][5];
+                product.category='food';
+
+                products[row]=product;
+            }
+            // console.log(reviews);
+            res.render('components/productMatched',{products:products});
+            
+        });
   }
-
-
-
-
-
-}
+        
+        
+};

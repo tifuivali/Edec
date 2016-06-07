@@ -31,13 +31,8 @@ $(document).ready(function(){
     $("#logged_pozitive_category").change(function(){
 
         var category=$(this).val();
-        getMostMatchedToYou(category);
         getYouMightLike(category);
         getStayAwayFrom(category);
-        setMostDesirable(category);
-        setMostUnDesirable(category);
-        setControversial(category);
-        setMostMatched(category);
         
     });
     
@@ -45,13 +40,6 @@ $(document).ready(function(){
        
        category_pozitive=$(this).val();
        getPozitive(category_pozitive);
-       getNegative(category_pozitive);
-       var category=category_pozitive;
-       getMostMatchedToYou(category);
-       setMostDesirable(category);
-       setMostUnDesirable(category);
-       setControversial(category);
-       setMostMatched(category);
        
    });
    
@@ -66,7 +54,20 @@ $(document).ready(function(){
         $.get("")
     });
     
-    var category=$("#logged_pozitive_category").val();
+    $("#category").change(function(){
+        var category=$("#category").val();
+         getMostMatchedToYou(category);
+         getYouMightLike(category);
+         getStayAwayFrom(category);
+         setMostDesirable(category);
+         setMostUnDesirable(category);
+         setControversial(category);
+         setMostMatched(category);
+         $("#logged_pozitive_category").val(category);
+    });
+    var category=$("#category").val();
+    
+    var category=$("#category").val();
     if(!category)
      category=category_pozitive;
     

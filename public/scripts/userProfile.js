@@ -38,8 +38,9 @@ $(document).ready(function(){
     
    $("#category").change(function(){
        
-       category=$(this).val();
-       getReviews(username,category);
+       //category=$(this).val();
+       //getReviews(username,category);
+       setSimilarsUsers();
    });
    
    
@@ -56,8 +57,22 @@ $(document).ready(function(){
    
    setImageProfile();
   
+   setSimilarsUsers();
+   
     
 });
+
+
+
+
+function setSimilarsUsers()
+{
+    var cat=$("#category").val();
+    $.get(host+'/usersSimilars?category='+cat,function(data,succes){
+        $("#usersSimilars").html(data);
+    });
+    
+}
 
 function addElectronicPreference()
 {

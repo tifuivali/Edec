@@ -36,6 +36,14 @@ var electronic=require('./routes/electronics/electronicsPreferences');
 var eb=require('./routes/tests/ebaytest');
 var notify=require('./routes/notify');
 var product=require('./routes/product');
+var usersSimilars=require('./routes/userSimilars');
+var notifications=require('./routes/notifications');
+var hotelReviews=require('./routes/populate_hotels/hotelReviews');
+
+
+
+
+
 
 app.locals.points = "8,713";
 
@@ -82,7 +90,8 @@ app.use('/amazon',amazonapi);
 app.use('/ebay',eb);
 app.use('/notify',notify);
 app.use('/product',product);
-
+app.use('/usersSimilars',usersSimilars);
+app.use('/notifications',notifications);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

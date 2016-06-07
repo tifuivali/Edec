@@ -20,9 +20,10 @@ nav(class="navbar navbar-default headerNav")
                   span(class="input-group-addon"  id='bSearch')
                     span(class="glyphicon glyphicon-search" aria-hidden="true" )
             span(class='glyphicon glyphicon-menu-down') 
-                 select(id='category')
+                 select(id='category' class='headerselect')
                      option(value='hotels') Hotels
                      option(value='electronics') Electronics
+                     option(value='food') Food
                       
 
 if (logged==0)
@@ -36,7 +37,7 @@ else
         span Welcome #{username}!
        a(class ="a_class" href="/userprofile" )
          span(class="glyphicon glyphicon-user" aria-hidden="true")
-       a(class="a_class" href="#" )
+       a(class="a_class" href="/notifications" )
            span(class="glyphicon glyphicon-envelope" aria-hidden="true" )
 
        a(class="a_class", href="/logout")

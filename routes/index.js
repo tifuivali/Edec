@@ -129,6 +129,11 @@ router.get('/controversial',function(req,res) {
         controversial.getControversalHotels(req,res);
         return ;
     }
+    if(category==='food')
+    {
+        controversial.getControversalFood(req,res);
+        return ;
+    }
     res.send("Invalid category!");
 
 });
@@ -145,13 +150,13 @@ router.get('/unloged/mostundesirable',function(req,res) {
        getUndesirableElectronics(req,res,maxrows,trim);
        return;
    }
-   else if(category==='food')
-   {
-       mostUndesirable.getDesirableCars(req,res,maxrows,trim);
-       return;
-   }
     else if(category=='hotels'){
        mostUndesirable.getUndesirableHotels(req,res,maxrows);
+       return;
+   }
+   if(category==='food')
+   {
+       mostUndesirable.getUndesirableFood(req,res,maxrows,trim);
        return;
    }
    res.send("Invalid category!");
@@ -170,13 +175,13 @@ router.get('/unloged/mostdesirable',function(req,res) {
         getDesirableElectronics(req,res,maxrows,trim);
         return;
     }
-    else if(category==='food')
-    {
-        mostDesirable.getDesirableCars(req,res,maxrows,trim);
-        return;
-    }
     else if(category=='hotels'){
         mostDesirable.getDesirableHotels(req,res,maxrows);
+        return;
+    }
+    if(category==='food')
+    {
+        mostDesirable.getDesirableFood(req,res,maxrows,trim);
         return;
     }
     res.send("Invalid category!");
