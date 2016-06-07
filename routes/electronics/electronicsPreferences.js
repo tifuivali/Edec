@@ -33,7 +33,10 @@ router.get('/getAddElectronicsPreferencesBox',function(req,res){
            var oss=[];
            for(var row in result2.rows)
            {
-               oss[row]=result2.rows[row][0];
+               if(result2.rows[row][0])
+               if(result2.rows[row][0].length>30)
+               oss[row]=result2.rows[row][0].substring(0,30);
+               else  oss[row]=result2.rows[row][0];
            }
            oss[oss.length]="None";
            

@@ -6,49 +6,63 @@ html
         link(rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css")
         link(rel='stylesheet' href='/stylesheets/style.css')
         link(rel='stylesheet' href='/stylesheets/hotelpref.css')
+        script(type="text/javascript"  src='http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js')
+        script(type'text/javascript' src='/scripts/hotelPref.js')
     body
-      header
+        header
             include ./templates/header.jade
-      div(id="bodydiv" class="form-body")
-        form(method="POST" , action="/hotelpreferences")
-          input(type="hidden", name="_user", value="POST")
-          p Minimum number of stars
-            input(type="number", name="min_stars")
-          p Maximum number of stars
-            input(type="number", name="max_stars")
-          p Conference room
-            input(type="checkbox", name="conferince_room")
-          p Price minim
-            input(type="number", name="price_min")
-          p Price maxim
-            input(type="number", name="price_max")
-          p Disabled people
-            input(type="checkbox", name="disabled_people")
-          p Pet friendly
-            input(type="checkbox", name="pet_friendly")
-          p Has restaurant
-             input(type="checkbox", name="has_restaurant")
-          p Has a farm
-             input(type="checkbox", name="ferme")
-          p Has playground
-              input(type="checkbox", name="playground")
-          p
-            button(type="submit") Insert data
-          p #{response_text2}
-        form(method="POST" , action="/hotelpreferences_loc")
-           input(type="hidden", name="_user", value="POST")
-           p Country
-              input(type="text", name="country")
-           p City
-              input(type="text", name="city")
-           p
-              button(type="submit") Insert location
-            p #{response_text}
-        form(method="POST" , action="/hotel_types",onchange="this.form.submit()")
-            select(id='types_hotel')
-              option(value='motel') Motel
-              option(value='hostel') Hostel
-              option(value='buisness_hotel') Buisiness Hotel
-              option(value='resort_hotel') Resort Hotel
-              option(value='casino_hotel') Casino Hotel
+        div(id="bodydiv" class="form-body")
+            div(id="hotel-pref")
+                form(method="POST" , action="/hotelpreferences_loc")
+                    input(type="hidden", name="_user", value="POST")
+                    p Country
+                        input(type="text", name="country" id='country')
+                    p City
+                        input(type="text", name="city" id='city')
+                    p
+                        button(type="submit", id='submitLocation') Insert location
+                    p #{response_text}
+                    input(type='hidden' value=foundMatch id='foundMatch')
 
+                form(method="POST" , action="/hotelpreferences")
+                    input(type="hidden", name="_user", value="POST")
+                    p Minimum number of stars
+                        input(type="number", name="min_stars")
+                    p Maximum number of stars
+                        input(type="number", name="max_stars")
+                    p Price maxim
+                        input(type="number", name="price_max")
+                    div(class='checkboxdiv')
+                        p Conference room
+                            input(type="checkbox", name="conferince_room", class="checkbox")
+                        p Accessibility
+                            input(type="checkbox", name="disabled_people", class="checkbox")
+                        p Pet friendly
+                            input(type="checkbox", name="pet_friendly", class="checkbox")
+                        p Has restaurant
+                            input(type="checkbox", name="has_restaurant", class="checkbox")
+
+                        p Has playground
+                            input(type="checkbox", name="playground", class="checkbox")
+                        p Has non smoking rooms
+                            input(type="checkbox", name="has_non_smoking", class="checkbox")
+                        p Has smoking rooms
+                            input(type="checkbox", name="has_smoking", class="checkbox")
+                        p Free internet
+                            input(type="checkbox", name="free_internet", class="checkbox")
+                        p Free cancellation policy
+                            input(type="checkbox", name="free_cancelation", class="checkbox")
+                        p Free parking
+                            input(type="checkbox", name="free_parking", class="checkbox")
+                        p Swimming pool
+                            input(type="checkbox", name="swimming_pool", class="checkbox")
+                        p
+                            button(type="submit") Save preferences
+                        p #{response_text2}
+            div(id="infodiv", class="form-body-info")
+                h3 Hotel preferences
+                div(id="hotels-location")
+                div(id="hotels-saved")
+
+     footer
+        include ./templates/footer.jade

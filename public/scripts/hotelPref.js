@@ -9,11 +9,15 @@ $(document).ready(function () {
             function (data, succes) {
 
                 $("#hotels-location").html(data);
-                if ($('#foundMatch').val() == true){
-                    $('#submitLocation').after('<p>No matches found for inserted location. ' +
-                        'Press the button below to try and retrieve it from our partners </p>');
-                    $('#foundMatch').after('<input type="button" id="proceedButton" value="Proceed">');
-                    $('#foundMatch').click(expediaSearch());
+                if ($('#foundMatch').val() === '0'){
+                    // $('#submitLocation').after('<p id="noMatches">No matches found for inserted location. ' +
+                    //     'Press the button below to try and retrieve it from our partners </p>');
+                    // $('#foundMatch').after('<input type="button" id="proceedButton" value="Proceed">');
+                    $('#proceedButton').click(function(){
+                        expediaSearch();
+                        $('#noMatches').remove();
+                        $('#proceedButton').remove();
+                    });
                 }
                 $('.delete_button').click(function(){
                     var idLocation = $(this).parent()[0].firstElementChild.value;
@@ -55,16 +59,17 @@ $(document).ready(function () {
         $.get(host + '/hotelpreferences/expediaSearch?city='+city+'&country='+country,
             function (data, succes) {
 
-
+                $('#submitLocation').prop('disabled', false);
+                getLocationList(username);
             }
         )
     };
 
-    // $('#submitLocation').click(function () {
-    //     $('#submitLocation').prop('disabled', true);
-    //     getLocationList(username);
-    //
-    // });
+    $('#submitLocation').click(function () {
+        $('#submitLocation').prop('disabled', true);
+        // getLocationList(username);
+
+    });
 
     
     getPrefList();

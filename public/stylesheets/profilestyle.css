@@ -6,10 +6,24 @@
     
 
 }
+
+.userHead{
+    position:relative;
+    border-bottom: 1px solid #b5b5b5;
+    padding: 30px;
+}
+.upload{
+    float: top;
+    padding: 5px;
+    width: 100%;
+    height: 100%;
+}
+
 #userpanel{
 
     background-color:white;
     height:400px;
+    
     padding:5px;
 
 }
@@ -28,11 +42,14 @@
     width:370px;
     float:right;
     margin:30px 5% 0 15px;
+    max-height: 1365px;
+    overflow: auto;
 
 }
 #similar-users{
     margin-left:0px;
-    width: 312px;
+    width: 100%;
+    
 }
 .userprofile{
     margin-left:10px;
@@ -48,6 +65,24 @@
     color:#ff6c10;
 }
 
-.table{
-    padding: 20px;
+
+form-control2{
+    max-width: 200px;
+}
+.preferenceL{
+ width: 100%;
+ padding: 40px;   
+}
+
+tableT {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    border: 1px solid #ddd;
+}
+
+th, td {
+    border: none;
+    text-align: left;
+    padding: 8px;
 }

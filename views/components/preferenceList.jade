@@ -1,20 +1,21 @@
-table(class='table')
- -var index=0
-  thead
-    tr
-     each col in columns
-       td #{col}
-     td Remove  
-  tbody
-    each row in preferences
-      tr
-        each coll in preferences
-           td #{coll}
-        td
-         a(href=links[index])
-            button(class='glyphicon glyphicon-remove')
-         index++      
+div(class='preferenceL' style="overflow-x:auto;")
+    table(class='tableT' )
+     -var index=0
+     thead
+       tr
+        each col in columns
+         td #{col}
+        td Remove  
+     tbody
+        each row in preferences
+          tr
+            each coll in preferences
+             td #{coll}
+            td
+             a(href=links[index])
+                button(class='glyphicon glyphicon-remove')
+                index++      
+            
+            
+    
         
-          
-  
-      

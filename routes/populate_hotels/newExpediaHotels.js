@@ -1,3 +1,4 @@
+var insertHotelLocPref = require('../controller/insertHotelLocPref')
 module.exports = {
     verify_property:function (property_value, column, id_list){
         var express = require('express');
@@ -30,7 +31,7 @@ module.exports = {
             });
     },
 
-get_hotels:function (city, country){
+get_hotels:function (city, country,req,res){
     var express = require('express');
     var router = express.Router();
     var oracledb = require('oracledb');
@@ -39,6 +40,7 @@ get_hotels:function (city, country){
     var location_country=country;
     var hotelReviews = require('./hotelReviews');
     var location=location_city.split(' ').join('%20')+'%20'+location_country.split(' ').join('%20');
+    var firstInsert= true;
 
     requestify.get('http://terminal2.expedia.com/x/geo/features?ln.op=cn&ln.value='+location+
             '&type=multi_city_vicinity&verbose=2&limit=1&apikey=UGw55vYAHlGISktWebfNqdZdSEuqmaPG')
@@ -47,6 +49,7 @@ get_hotels:function (city, country){
                 var id_location=body[0].id;
                 console.log("id location: "+id_location);
                 var id_list=[];
+            
 
                 requestify.get('http://terminal2.expedia.com/x/geo/features/'+id_location+
                         '/features?type=hotel&top=100&verbose=3&lcid=1033&apikey=UGw55vYAHlGISktWebfNqdZdSEuqmaPG')
@@ -215,6 +218,12 @@ get_hotels:function (city, country){
                                                     console.log(result.outBinds.response.trim());
                                                 }
 
+                                                if(firstInsert){
+                                                    insertHotelLocPref.insertLocationPref(country,city,req,res);
+                                                    firstInsert = false;
+                                                }
+
+
 
                                             });
                                         /*  */
@@ -222,6 +231,8 @@ get_hotels:function (city, country){
                                     var property="accessibility%20"+location;
                                     var column="disabled_people";
 
+                                    hotelReviews.get_reviews(0,id_list, global.connection);
+                                    
                                     console.log('verifying properties');
 
                                     verify_property(property, column,id_list);
@@ -237,7 +248,6 @@ get_hotels:function (city, country){
                                     verify_property('playground%20'+location, 'PLAYGROUND',id_list);
 
 
-                                    hotelReviews.get_reviews(0,id_list, global.connection);
 
 
 

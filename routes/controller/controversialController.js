@@ -5,7 +5,7 @@ module.exports = {
     global.connection.execute('select* from (SELECT id_hotel,name_hotel,description, details_url,THUMB_NAIL_URL,'+
         ' hotels_info.hotel_reviews(id_hotel,1),hotels_info.hotel_reviews(id_hotel,0),city, country '+
         ' FROM hotels where  tops_hotels.nr_dif_positive_neg_rev(id_hotel) between 0 and 5 and hotels_info.hotel_reviews(id_hotel,1)<>0 and'+
-        ' hotels_info.hotel_reviews(id_hotel,0)<>0 order by LEAST(hotels_info.hotel_reviews(id_hotel,0),hotels_info.hotel_reviews(id_hotel,1)) desc  ) where rownum<4',
+        ' hotels_info.hotel_reviews(id_hotel,0)<>0 order by LEAST(hotels_info.hotel_reviews(id_hotel,0),hotels_info.hotel_reviews(id_hotel,1)) desc  ) where rownum<20',
         function(err,result){
 
             if(err){
@@ -27,15 +27,13 @@ module.exports = {
             {
                 var product=[];
                 product.title=result.rows[row][1];
-               
                 product.description=result.rows[row][2].substring(0,70)+'...';
                 product.seller=result.rows[row][3];
-                product.id=result.rows[row][0];
+
                 product.picture=result.rows[row][4];
                 product.nr_users="Positive reviews: "+result.rows[row][5];
                 product.nr_users1="Negative reviews: "+result.rows[row][6];
                 product.location=result.rows[row][7]+" "+result.rows[row][8];
-                product.category='hotels';
                 products[row]=product;
             }
 
@@ -44,13 +42,13 @@ module.exports = {
 
 
         });
-},
 
-getControversalFood:function (req,res){
-        console.log("controversial food...");
+},
+    getControversalFood:function (req,res){
+        console.log("controversial hotels...");
         global.connection.execute('select* from (SELECT food_name,SHORT_DESCRIPTION,FOOD_GROUP, '+
             ' aliments_info.aliment_reviews(food_id,1),aliments_info.aliment_reviews(food_id,0) '+
-            ',food_id FROM food where  abs(aliments_info.aliment_reviews(food_id,0)-aliments_info.aliment_reviews(food_id,1))' +
+            ' FROM food where  abs(aliments_info.aliment_reviews(food_id,0)-aliments_info.aliment_reviews(food_id,1))' +
             ' between 0 and 5 and aliments_info.aliment_reviews(food_id,1)<>0 and'+
             ' aliments_info.aliment_reviews(food_id,0)<>0 order by LEAST(aliments_info.aliment_reviews(food_id,0),aliments_info.aliment_reviews(food_id,1)) desc  ) where rownum<20',
             function(err,result){
@@ -84,8 +82,7 @@ getControversalFood:function (req,res){
                     product.picture = "/images/food" + nr_random + ".jpg";
                     product.nr_users="Positive reviews: "+result.rows[row][3];
                     product.nr_users1="Negative reviews: "+result.rows[row][4];
-                    product.id=result.rows[row][5];
-                    product.category='food';
+
                     products[row]=product;
                 }
 
@@ -96,7 +93,4 @@ getControversalFood:function (req,res){
             });
 
     }
-
-
-
 }

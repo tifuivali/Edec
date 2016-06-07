@@ -5,6 +5,11 @@ body {
 }
 
 
+.headersel{
+    font-size: 10px;
+    font:8px;
+}
+
 .userHead{
     float: left;
     width: 100%;
@@ -224,6 +229,10 @@ margin-left: 5%;
     width: 25%;
     overflow: hidden;
 }
+.label-electr
+{
+    padding: 10px;
+}
 .product-description{
     text-align:justify;
     overflow: hidden;
@@ -323,5 +332,9 @@ th {
     margin-top:50px;
 }
 
+.preferenceL{
+ width: 80%;
+ padding: 40px;   
+}
 
 

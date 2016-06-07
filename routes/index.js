@@ -405,7 +405,7 @@ router.get('/', function(req, res) {
   {
     user          : "edec",
     password      : "edec",
-    connectString : "79.112.123.254/XE"
+    connectString : "localhost/XE"
   },
   function(err, connection)
   {

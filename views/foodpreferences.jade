@@ -1,0 +1,61 @@
+doctype html
+html
+    head
+        title EDEC
+        link(rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css")
+        link(rel='stylesheet' href='/stylesheets/style.css')
+        link(rel='stylesheet' href='/stylesheets/foodpref.css')
+        script(type="text/javascript"  src='http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js')
+        script(type'text/javascript' src='/scripts/foodpref.js')
+    body(class="document")
+        header
+            include ./templates/header.jade
+        div(class="document")
+            div(class="col-md-10 col-md-offset-1")
+                h3 Food preferences
+                div(id="foodpref" class="col-md-7 col-md-offset-1 ")
+                    input(type="hidden", name="_user", value="POST" )
+                    div(class="col-md-12")
+                        div(class="col-md-8")
+                            label Minimum number of nitrogen to protein factor
+                        div(class="col-md-4")
+                            input(type="number" class="form-control" name="nitrogen_min" value=preferences.min_nitrogen)
+                    div(class="col-md-12")
+                        div(class="col-md-8")
+                          label Maximum number of nitrogen to protein factor
+                        div(class="col-md-4")
+                          input(type="number" class="form-control" name="nitrogen_max" value=preferences.min_nitrogen)
+                    div(class="col-md-12")
+                        div(class="col-md-8")
+                          label Minimum number of carbohydrate factor
+                        div(class="col-md-4")
+                          input(type="number",class="form-control" name="carbohydrate_min" value=preferences.min_carbohydrate)
+                    div(class="col-md-12")
+                        div(class="col-md-8")
+                          label Maximum number carbohydrate factor
+                        div(class="col-md-4")
+                          input(type="number",class="form-control" name="carbohydrate_max" value=preferences.max_carbohydrate)
+                    div(class="col-md-12")
+                        div(class="col-md-8")
+                          label Minimum number of fat factor
+                        div(class="col-md-4")
+                          input(type="number",class="form-control" name="fat_min" value=preferences.min_fat)
+                    div(class="col-md-12")
+                        div(class="col-md-8")
+                          label Maximum number of fat factor
+                        div(class="col-md-4")
+                          input(type="number",class="form-control" name="fat_max" value=preferences.max_fat)
+                    div(class="col-md-12")
+                        div(class="col-md-8")
+                          label Minimum number of protein factor
+                        div(class="col-md-4")
+                          input(type="number",class="form-control" name="protein_min" value=preferences.min_protein)
+                    div(class="col-md-12")
+                        div(class="col-md-8")
+                          label Maximum number of protein factor
+                        div(class="col-md-4")
+                          input(type="number",class="form-control" name="protein_max" value=preferences.max_protein)
+                    a(id="submit" class="btn btn-default")
+                        span Save preferences
+    footer
+        include ./templates/footer.jade

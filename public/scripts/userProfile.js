@@ -1,5 +1,5 @@
-//var host="http://localhost:3000";
-var host='http://edec2016.ddns.net';
+var host="http://localhost:3000";
+//var host='http://edec2016.ddns.net';
 $(document).ready(function(){
    
    var username=$("#username").text();
@@ -44,16 +44,19 @@ $(document).ready(function(){
    });
    
    
-   $("#button_add_preferences").click(function(){
+   $("#addElectronics").click(function(){
       
-      var category=$("#categoryPreferences").val();
-      $("#addpreferenceBox").text(category); 
-      if(category=="electronics")
         addElectronicPreference();
        
    });
    
-   getUserPreference();
+    $("#viewElectronics").click(function(){
+      
+       getUserPreference();
+       
+   });
+   
+   
    
    setImageProfile();
   
@@ -78,7 +81,7 @@ function addElectronicPreference()
 {
     $.get(host+"/electronics/getAddElectronicsPreferencesBox",function(data,succes){
         
-        $("#userpreference").html(data); 
+        $("#bodydiv").html(data); 
     });
 }
 
@@ -86,7 +89,7 @@ function addElectronicPreference()
 function getUserPreference()
 {
     $.get(host+"/electronics/userpreferences",function(data,succes){
-        $("#userpreference").html(data);
+        $("#bodydiv").html(data);
     });
     
 }

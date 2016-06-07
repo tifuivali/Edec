@@ -1,7 +1,7 @@
 module.exports = {
     getHotelReviews: function (category, res, type) {
         global.connection.execute('select * from ( select * from hotels_reviews h_r join hotels h on h_r.id_hotel=h.id_hotel' +
-            ' where type_review=:type order by time_review desc) where rownum<5',
+            ' where type_review=:type order by time_review desc) where rownum<50',
             [type]
             , function (err, result) {
                 if (err) {
@@ -65,7 +65,7 @@ module.exports = {
     getElectronicsReviews: function (category, res, type) {
 
         global.connection.execute('select * from ( select * from electronics_reviews e_r join electronics e on ' +
-            '  e.product_id=e_r.product_id where type_review=:type order by up_votes desc) where rownum<5',
+            '  e.product_id=e_r.product_id where type_review=:type order by up_votes desc) where rownum<50',
             [type]
             , function (err, result) {
 
@@ -89,11 +89,9 @@ module.exports = {
                     review.body = result.rows[row][3];
                     review.upVotes = result.rows[row][6];
                     review.downVotes = result.rows[row][7];
-                    review.location = result.rows[row][8];
+                    review.location = result.rows[row][8].replace("_"," ");
                     review.author = result.rows[row][1];
                     var nr_random = Math.floor((Math.random() * 3) + 0);
-                    review.picture=result.rows[row][19];
-                    if(!review.picture)
                     review.picture = "/images/electronics" + nr_random + ".png";
                     if (review.author === null) {
                         review.author = "Anonymous";
@@ -116,7 +114,7 @@ module.exports = {
 
         global.connection.execute('select * from ( select to_char(time_review),username,review, up_votes,' +
             'down_votes,food_name,f.SHORT_DESCRIPTION from reviewsfood r_f join food f on ' +
-            '  r_f.food_id=f.food_id where type_review=:type order by time_review desc) where rownum<5',
+            '  r_f.food_id=f.food_id where type_review=:type order by time_review desc) where rownum<50',
             [type]
             , function (err, result) {
 

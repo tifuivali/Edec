@@ -39,7 +39,7 @@ var product=require('./routes/product');
 var usersSimilars=require('./routes/userSimilars');
 var notifications=require('./routes/notifications');
 var hotelReviews=require('./routes/populate_hotels/hotelReviews');
-
+var foodpreferences=require('./routes/foodpreferences');
 
 
 
@@ -92,6 +92,7 @@ app.use('/notify',notify);
 app.use('/product',product);
 app.use('/usersSimilars',usersSimilars);
 app.use('/notifications',notifications);
+app.use('/foodpreferences',foodpreferences);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

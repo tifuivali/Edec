@@ -12,9 +12,9 @@ router.get('/openEmail', function(req, res) {
     var email = req.query.email;
     var data = req.query.date;
 
-    global.connection.execute('select  titlu,mesaj,to_char(data), email, state  from noticari where email=:email' +
+    global.connection.execute('select  titlu,mesaj,to_char(data), email, state  from noticari where username=:u' +
         ' and to_char(data)=:data',
-        [email,data],function(err,result){
+        [username,data],function(err,result){
 
             if(err){
                 res.send("Erorr ocurred!");

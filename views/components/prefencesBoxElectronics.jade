@@ -1,23 +1,28 @@
-form(class="form-signin" method='post' action='electronics/addPrefencesElectronics')
-   label Brand:
-   select(name='brand')
+div(class='electronicPref')
+ form(class="form-signin" method='post' action='electronics/addPrefencesElectronics')
+   div(class='input-electronic')
+    label(class='label-electr') Brand:
+    select(name='brand')
      each brand in brands
        option(value=brand) #{brand}
-   label Model:
-   select(name='model')
-     each model in models
+   div(class='input-electronic')
+     label(class='label-electr') Model:
+     select(name='model')
+      each model in models
        option(value=model) #{model}
-   label Color:
-   select(name='color')
-     each color in colors
-       option(value=color) #{color}  
-   label Operating System:
-   select(name='os')
-     each os in oss
+   div(class='input-electronic')
+     label(class='label-electr') Color:
+     select(name='color')
+      each color in colors
+       option(value=color) #{color}
+   div(class='input-electronic')      
+     label(class='label-electr') Operating System:
+     select(name='os')
+      each os in oss
        option(value=os) #{os}
-   label Minimum Price:
-   input(type="text" name='min_price' id="min_price" class="form-control" placeholder="Minimum Price")
-   label Maximum Price:
-   input(type="text" name='max_price' id="max_price" class="form-control" placeholder="Maximum Price")
+   label(class='label-electr') Minimum Price:
+   input(type="text" name='min_price' id="min_price" class="form-control2" placeholder="Minimum Price")
+   label(class='label-electr') Maximum Price:
+   input(type="text" name='max_price' id="max_price" class="form-control2" placeholder="Maximum Price")
    button(type='submit' class='glyphicon glyphicon-plus')
     

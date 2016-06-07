@@ -83,6 +83,19 @@ http://edec2016.ddns.net/product/addReview?category=[category]&id=[product_id]&r
 http://edec2016.ddns.net/userprofile/reviews?username=[username]&category=[category]&page=[page] | Returneaza review-rile userului specificat. | NU | HTML 
 
 
+---------------
+Api-uri utilizate
+-----------------
+
+Api Rest
+------------------
+Request       | Descriere    
+--------------| ----------
+https://api.nal.usda.gov/ndb/list| Returneaza json cu informatii din categoria Food
+http://developer.expedia.com/directory|Returneaza json cu informatii din categoria Hotels
+https://go.developer.ebay.com/ | Returneaza informatii despre electronice din categorie Electronics
+ http://webservices.amazon.com/onca/xml? |Returneaza informatii despre electronice din categorie Electronics
+
 >- Detalii
 >-- [category] -> String: categoria catre care se face cererea.
 >-- [maxrows] -> Number: numarul de elemente ce vor fi returnate.

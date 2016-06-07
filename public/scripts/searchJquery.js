@@ -1,6 +1,6 @@
 
-//var host='http://localhost:3000';
-var host='http://edec2016.ddns.net';
+var host='http://localhost:3000';
+//var host='http://edec2016.ddns.net';
 
 $(document).ready(function()
 {
